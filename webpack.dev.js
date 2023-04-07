@@ -1,13 +1,16 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
-import { merge } from 'webpack-merge';
-import common from './webpack.common.js';
+// import { merge } from 'webpack-merge';
+const { merge } = require('webpack-merge')
+// import common from './webpack.common.js';
+const common = require('./webpack.common.js')
+const path = require('path');
 
-const filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(filename);
+// const filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(filename);
 
-export default merge(common, {
+module.exports = merge(common, {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -16,7 +19,7 @@ export default merge(common, {
   },
   target: 'web',
   devServer: {
-    port: 6969,
+    port: 5000,
     static: {
       directory: path.join(__dirname, 'public'),
     },
