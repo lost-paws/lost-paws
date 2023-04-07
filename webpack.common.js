@@ -1,15 +1,18 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+//import HtmlWebpackPlugin from 'html-webpack-plugin';
+// import path from 'path';
 
-const filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(filename);
+// import { fileURLToPath } from 'url';
 
-export default {
+// const filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(filename);
+
+module.exports = {
   entry: './src/index.tsx',
   target: 'web',
   devServer: {
-    port: '6969',
+    port: '5000',
     static: {
       directory: path.join(__dirname, 'public'),
     },
@@ -19,14 +22,15 @@ export default {
     historyApiFallback: true,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.tsx', '.ts'],
+    fullySpecified: false,
+    extensions: ['.js', '.jsx', '.json', '.tsx', '.ts', '.css'],
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: 'babel-loader'
       },
       {
         test: /\.s?css$/i,

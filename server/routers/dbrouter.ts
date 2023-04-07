@@ -1,9 +1,9 @@
 import express, { Router, Request, Response, NextFunction } from 'express';
-import db from '../models/db'
+import { db } from '../models/db'
 
-const router: Router = express.Router();
+export const dbRouter: Router = express.Router();
 
-router.post('/test', async (req: Request, res: Response) => {
+dbRouter.post('/test', async (req: Request, res: Response) => {
   try {
     const createTableString = `
     CREATE TABLE test (
@@ -20,5 +20,3 @@ router.post('/test', async (req: Request, res: Response) => {
   }
 })
 
-
-export default router;

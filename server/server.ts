@@ -1,7 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
+// const express = require('express');
+// const { Request, Response, NextFunction } = express;
 import morgan from 'morgan';
-import db from './models/db'
-import dbRouter from './routers/dbrouter'
+import { db } from './models/db'
+import { dbRouter } from './routers/dbrouter'
 
 const app = express();
 
@@ -15,7 +17,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('hello');
 })
 
-app.use('/test', dbRouter);
+// app.use('/test', dbRouter);
 
 // PROTECTED ROUTES
 

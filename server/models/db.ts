@@ -6,7 +6,7 @@ const connectionString = process.env.PG_URI || '';
 
 const pool = new Pool({ connectionString });
 
-export default {
+export const db = {
   query: async (queryStr: string, values?: unknown[]): Promise<QueryResult<any>> => {
     console.log('executed query', queryStr);
     try {
