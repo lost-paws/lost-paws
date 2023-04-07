@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import MapContainer from '../MapContainer';
+import MapContainer from './MapContainer';
 import LoginButton from './LoginButton';
 
 const App: FC = (props) => {
