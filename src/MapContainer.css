@@ -3,5 +3,9 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto";
-  background-color: aqua;
+}
+
+.container {
+  color: #cfe8fc;
+  height: 100vh;
 }
