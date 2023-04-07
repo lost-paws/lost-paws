@@ -26,8 +26,8 @@ app.get('/', (req: Request, res: Response) => {
 // GLOBAL ERROR HANDLER
 
 
-app.listen(5000, () => {
-  console.log('listening on port 5000');
+app.listen(8000, () => {
+  console.log('listening on port 8000');
 })
 
 export default app;
