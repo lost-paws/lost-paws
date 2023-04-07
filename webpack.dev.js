@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 // import path from 'path';
 // import { fileURLToPath } from 'url';
 
@@ -19,7 +21,7 @@ module.exports = merge(common, {
   },
   target: 'web',
   devServer: {
-    port: 5000,
+    port: 3000,
     static: {
       directory: path.join(__dirname, 'public'),
     },

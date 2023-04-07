@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path');
 //import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -12,7 +14,7 @@ module.exports = {
   entry: './src/index.tsx',
   target: 'web',
   devServer: {
-    port: '5000',
+    port: '3000',
     static: {
       directory: path.join(__dirname, 'public'),
     },
