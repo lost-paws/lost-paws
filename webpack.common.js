@@ -19,7 +19,7 @@ export default {
     historyApiFallback: true,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.tsx', '.ts'],
+    extensions: ['.js', '.jsx', '.json', '.tsx', '.ts', '.css'],
   },
   module: {
     rules: [
