@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -14,12 +14,23 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import HomeIcon from '@mui/icons-material/Home';
-import RegistrationButton from './RegistrationButton';
+//import RegistrationButton from './RegistrationButton';
+import RegistrationFinder from '../apis/RegistrationFinder';
+import Button from '@mui/material/Button';
 
 
 
 
 export default function RegistrationForm() {
+const [username, setUserName] = useState('');
+const [password, setPassword] = useState('');
+const [firstName, setFirstName] = useState('');
+const [lastName, setLastName] = useState('');
+const [phoneNumber, setPhoneNumber ] = useState('');
+const [email, setEmail ] = useState('');
+const [address, setAddress] = useState('');
+
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,7 +38,12 @@ export default function RegistrationForm() {
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-//display: 'flex', alignItems: 'center', justifyContent:'center', flexWrap: 'wrap', width: '100ch'
+
+  const handleRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+  }
+
+
   return (
     <>
   <HomeIcon className='home-btn'/>
@@ -45,8 +61,10 @@ export default function RegistrationForm() {
       }}>
       <div>
         <TextField
-          label="Username"
-          id="outlined-start-adornment"
+          label="username"
+          value={username}
+          onChange={e => setUserName(e.target.value)}
+          id="username"
           sx={{ m: 1, width: '25ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
@@ -55,7 +73,7 @@ export default function RegistrationForm() {
         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-password"
+            id="password"
             type={showPassword ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">
@@ -69,29 +87,39 @@ export default function RegistrationForm() {
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            label="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          
+
           />
         </FormControl>
         <TextField
-          label="First name"
-          id="outlined-start-adornment"
+          label="first name"
+          id="first-name"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
           sx={{ m: 1, width: '25ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
         />
          <TextField
-          label="Last name"
-          id="outlined-start-adornment"
+          label="last name"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          id="last-name"
           sx={{ m: 1, width: '25ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
         />
          <TextField
-          label="Phone number"
+          label="phone number"
+          value={phoneNumber}
+          onChange={e => setPhoneNumber(e.target.value)}
           type='text'
-          id="outlined-start-adornment"
+          id="phone-number"
           sx={{ m: 1, width: '25ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
@@ -99,25 +127,32 @@ export default function RegistrationForm() {
           }}
         />
          <TextField
-          label="Email address"
-          id="outlined-start-adornment"
+          label="email address"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          id="email"
           sx={{ m: 1, width: '55ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
         />
         <FormControl fullWidth sx={{ m: 1, width: '75ch'}}>
-          <InputLabel htmlFor="outlined-adornment-amount">Address</InputLabel>
+          <InputLabel htmlFor="">address</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-amount"
+            id="address"
             startAdornment={<InputAdornment position="start"></InputAdornment>}
-            label="Amount"
+            label="address"
+            value={address}
+            onChange={e => setAddress(e.target.value)}
           />
         </FormControl>
       </div>
     </Box>
           <div className='submit-btn'>
-          <RegistrationButton />
+          <Button type='submit' variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
+      bgcolor: "#A1CDF1",
+      color: "white"
+    }}} onClick={ handleRegister}>Register</Button>
           </div>
     
     </>

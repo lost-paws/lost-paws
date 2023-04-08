@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import MapContainer from '../MapContainer';
+import MapContainer from './MapContainer';
 import LoginButton from './LoginButton';
 import Registration from './RegistrationButton';
 import RegistrationPage from './RegistrationForm';
 import RegistrationButton from './RegistrationButton';
+import AddPet from './AddPetButton';
 
 const App: FC = (props) => {
   

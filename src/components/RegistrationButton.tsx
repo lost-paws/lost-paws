@@ -5,12 +5,17 @@ import Button from '@mui/material/Button';
 
 
 const RegistrationButton: FC = () => {
+
+const handleRegister = (e: object) => {
+  //clicking this should redirect to localhost:3000/register
+}
+
 return (
   <>
-  <Button variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
+  <Button type='submit' variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
       bgcolor: "#A1CDF1",
       color: "white"
-    }}} onClick={() => console.log('test')}>Register</Button>
+    }}} onClick={ handleRegister}>Register</Button>
 
   </>
 )
