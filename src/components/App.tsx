@@ -6,6 +6,11 @@ import RegistrationPage from './RegistrationForm';
 import RegistrationButton from './RegistrationButton';
 import AddPet from './AddPetButton';
 
+
+
+
+
+
 const App: FC = (props) => {
   
   return (
