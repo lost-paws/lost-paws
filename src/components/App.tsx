@@ -14,7 +14,6 @@ const App: FC = (props) => {
       <AddPet />
 
       <LoginButton />
-      <Map/>
 
     </>
   );
