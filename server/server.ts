@@ -1,11 +1,11 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 // const express = require('express');
 // const { Request, Response, NextFunction } = express;
 import morgan from 'morgan';
 import { db } from './models/db'
 import { dbRouter } from './routers/dbrouter'
 
-const app = express();
+const app: Express = express();
 
 
 // UTILITY ROUTES
