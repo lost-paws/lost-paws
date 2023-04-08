@@ -5,6 +5,7 @@ import Registration from './RegistrationButton';
 import RegistrationPage from './RegistrationForm';
 import RegistrationButton from './RegistrationButton';
 import AddPet from './AddPetButton';
+import Map from './TestMap';
 
 
 
@@ -22,6 +23,7 @@ const App: FC = (props) => {
 
       <LoginButton />
       <RegistrationButton />
+      <Map />
 
     </>
   );
