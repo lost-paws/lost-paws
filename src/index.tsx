@@ -4,14 +4,19 @@ import { createRoot } from 'react-dom/client';
 import App from './components/App';
 import ErrorPage from "./error-page";
 import { createBrowserRouter, RouterProvider} from "react-router-dom"
+import LoginPage from './components/LoginPage';
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         errorElement: <ErrorPage />
-    }
-])
+    },
+    {
+        path: "/login",
+        element: <LoginPage />
+    },
+]);
 
 const container = document.getElementById('root') as HTMLElement;
 
