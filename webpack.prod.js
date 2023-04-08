@@ -15,7 +15,7 @@ export default merge(common, {
   },
   target: 'web',
   devServer: {
-    port: '5000',
+    port: '3000',
     static: {
       directory: path.join(__dirname, 'public'),
     },
