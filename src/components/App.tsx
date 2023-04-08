@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import MapContainer from '../MapContainer';
 import AddPet from './AddPetButton';
 import LoginButton from './LoginButton';
+import Map from './TestMap';
 
 const App: FC = (props) => {
   
@@ -13,6 +14,7 @@ const App: FC = (props) => {
       <AddPet />
 
       <LoginButton />
+      <Map/>
 
     </>
   );

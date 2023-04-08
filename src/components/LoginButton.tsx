@@ -1,13 +1,19 @@
 import React, { FC } from 'react';
 import './LoginButton.css';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
-function handleClick (){
-    console.log('will take you to the login page')
-}
+
+
 
 const LoginButton: FC = () => {
+  const navigate = useNavigate()
+
   return (
-    <button className='login' onClick={() => handleClick()}>Login</button>
+    <Button variant="contained" sx={{ bgcolor: 'dda15e',  ":hover": {
+      bgcolor: "#A1CDF1",
+      color: "white"
+    }}} onClick={() => navigate('/login')}>Login to your account</Button>
   );
 };
 
