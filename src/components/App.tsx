@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import MapContainer from './MapContainer';
+import MapContainer from '../MapContainer';
 import LoginButton from './LoginButton';
 import Registration from './RegistrationButton';
 import RegistrationPage from './RegistrationForm';
@@ -12,6 +12,7 @@ const App: FC = (props) => {
       <h1>all dogs go to  heaven</h1>
 
       <MapContainer />
+      <AddPet />
 
       <LoginButton />
       <RegistrationButton />
