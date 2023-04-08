@@ -1,17 +1,40 @@
 import React, {FC} from 'react';
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
-import './LoginPage.css'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import LoginFinder from '../apis/LoginFinder';
+import './LoginPage.css';
 
 
 const LoginPage: FC = () => {
     let username: string;
     let password: string;
 
-    const handleClick = () => {
-        console.log(username, password)
+    type UserInformation = {
+        username: string;
+        password: string;
     }
+
+    const handleClick = async () => {
+        const reqBody: UserInformation = {
+            username: username,
+            password: password
+        }
+
+        console.log(reqBody)
+        //need to update with type
+        try {
+            const response = await LoginFinder.post('/', {
+                method: 'post',
+                url: '/',
+                data: reqBody
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
 
     return (
         <div className = 'loginform'>
@@ -20,9 +43,9 @@ const LoginPage: FC = () => {
             height: 350,
             border: '1px solid blue',
             '&:hover': {
-            top: 5,
-            left: 5,
-            boxShadow:'5px 5px'
+                top: 5,
+                left: 5,
+                boxShadow:'5px 5px'
             }
         }}>
             <header>
