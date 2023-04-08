@@ -1,0 +1,22 @@
+.loginForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+header {
+    text-align: center;
+    padding:10px;
+}
+
+.loginFields {
+    position: relative;
+    top: 50%;
+    transform: translate(0%, -70%);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
