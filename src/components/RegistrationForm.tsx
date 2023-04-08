@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useState } from 'react';
+import RegistrationFinder from '../apis/RegistrationFinder';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -14,9 +15,9 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import HomeIcon from '@mui/icons-material/Home';
-//import RegistrationButton from './RegistrationButton';
-import RegistrationFinder from '../apis/RegistrationFinder';
 import Button from '@mui/material/Button';
+import { ReportProblem } from '@mui/icons-material';
+import { report } from 'process';
 
 
 
@@ -39,8 +40,27 @@ const [address, setAddress] = useState('');
     event.preventDefault();
   };
 
-  const handleRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
+    //error handler
+ 
+
+  const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    try {
+      const response = await RegistrationFinder.post('/', {
+        username: username,
+        password: password,
+        first_name: firstName,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        email: email,
+        address: address
+      })
+      console.log('this is my response', response)
+    } catch (err) {
+      console.log(err)
+     
+    }
+
   }
 
 
@@ -152,7 +172,7 @@ const [address, setAddress] = useState('');
           <Button type='submit' variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
       bgcolor: "#A1CDF1",
       color: "white"
-    }}} onClick={ handleRegister}>Register</Button>
+    }}} onClick={handleRegister}>Register</Button>
           </div>
     
     </>
