@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import MapContainer from './MapContainer';
 import LoginButton from './LoginButton';
+import Registration from './RegistrationButton';
+import RegistrationPage from './RegistrationForm';
+import RegistrationButton from './RegistrationButton';
 
 const App: FC = (props) => {
   
@@ -11,6 +14,7 @@ const App: FC = (props) => {
       <MapContainer />
 
       <LoginButton />
+      <RegistrationButton />
 
     </>
   );
