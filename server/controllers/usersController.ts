@@ -14,7 +14,7 @@ const usersController: usersControllerInterface = {
   fetchUsers: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const allUsers = await db.query('SELECT * FROM "public"."users" LIMIT 100')
-      if (!allUsers) throw createHttpError(400, 'Users not found');
+      if (!allUsers.rowCount) throw createHttpError(400, 'Users not found');
       res.locals.fetchedUsers = allUsers.rows;
       return next()
     } catch (err) {
@@ -26,7 +26,7 @@ const usersController: usersControllerInterface = {
     try {
       const values = [req.params.id];
       const user = await db.query('SELECT * FROM "public"."users" WHERE _id = $1', values)
-      if (!user) throw createHttpError(400, 'User not found');
+      if (!user.rowCount) throw createHttpError(400, 'User not found');
       res.locals.fetchedUser = user.rows[0];
       return next();
     } catch (err) {

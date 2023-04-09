@@ -15,7 +15,7 @@ const petsController: petsControllerInterface = {
     try {
       const allPets = await db.query('SELECT * FROM "public"."pets" LIMIT 100');
       res.locals.fetchedPets = allPets.rows;
-      if (!allPets) throw createHttpError(400, 'Pet not found');
+      if (!allPets.rowCount) throw createHttpError(400, 'Pet not found');
       return next();
     } catch (err) {
       return next(createHttpError(400, 'Could not fetch all pets in petsController.fetchPets'));
@@ -28,7 +28,8 @@ const petsController: petsControllerInterface = {
       const command = 'SELECT * FROM "public"."pets" WHERE _id = $1';
       const values = [id];
       const pet = await db.query(command, values);
-      if (!pet) throw createHttpError(400, 'Pet not found');
+      console.log(pet);
+      if (!pet.rowCount) throw createHttpError(400, 'Pet not found');
       res.locals.fetchedPet = pet.rows[0];
       return next();
     } catch (err) {
