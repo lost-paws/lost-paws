@@ -38,6 +38,14 @@ const petsController: petsControllerInterface = {
   },
 
   createPet: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+
+    /* 
+    for reference: before the query is submitted, loc_last_seen MUST be in this format:
+    "SRID=4326;POINT(longitude latitude)"
+    There should be no comma betwen lng and lat
+    Remember that google maps generates them in the reverse order (lat lng), so they must be flipped to fit the posgis geogrpaphy data type
+    */
+
     const {
       owner_id,
       name,

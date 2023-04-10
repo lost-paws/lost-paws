@@ -20,8 +20,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send('hello');
 })
 
-// app.use('/test', dbRouter);
-
 // PROTECTED ROUTES
   // router for each table in the db (pets, users, sessions, comments)
   // route format: '/api/v1/<route_name>
