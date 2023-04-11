@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const connectionString = process.env.PG_URI || '';
-console.log('this is connection string', connectionString)
 const pool = new Pool({ connectionString });
 
 export const db = {

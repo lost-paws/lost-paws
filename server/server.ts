@@ -7,10 +7,13 @@ import { db } from './models/db'
 import { dbRouter } from './routers/dbrouter'
 import usersRouter from './routers/usersRouter'
 
+import cors from 'cors';
+
 const app: Express = express();
 
 
 // UTILITY ROUTES
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 

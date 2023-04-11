@@ -20,9 +20,20 @@ import { ReportProblem } from '@mui/icons-material';
 import { report } from 'process';
 
 
+// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
+
+
+
+
+
 
 
 export default function RegistrationForm() {
+
+const navigate = useNavigate();
+
 const [username, setUserName] = useState('');
 const [password, setPassword] = useState('');
 const [firstName, setFirstName] = useState('');
@@ -30,6 +41,7 @@ const [lastName, setLastName] = useState('');
 const [phoneNumber, setPhoneNumber ] = useState('');
 const [email, setEmail ] = useState('');
 const [address, setAddress] = useState('');
+
 
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -40,12 +52,14 @@ const [address, setAddress] = useState('');
     event.preventDefault();
   };
 
-    //error handler
- 
+
+
 
   const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+
     try {
+      
       const response = await RegistrationFinder.post('/', {
         username: username,
         password: password,
@@ -56,13 +70,12 @@ const [address, setAddress] = useState('');
         address: address
       })
       console.log('this is my response', response)
+      navigate('/')
     } catch (err) {
       console.log(err)
-     
     }
 
   }
-
 
   return (
     <>
@@ -169,7 +182,7 @@ const [address, setAddress] = useState('');
       </div>
     </Box>
           <div className='submit-btn'>
-          <Button type='submit' variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
+          <Button  type='submit' variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
       bgcolor: "#A1CDF1",
       color: "white"
     }}} onClick={handleRegister}>Register</Button>

@@ -6,6 +6,11 @@ import ErrorPage from "./error-page";
 import { createBrowserRouter, RouterProvider} from "react-router-dom"
 import RegistrationPage from './components/RegistrationForm';
 
+
+import { CookiesProvider } from 'react-cookie';
+
+
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -22,9 +27,11 @@ const router = createBrowserRouter([
 const container = document.getElementById('root') as HTMLElement;
 
 ReactDOM.createRoot(container).render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+    <CookiesProvider>
+        <React.StrictMode>
+            <RouterProvider router={router} />
+        </React.StrictMode>
+    </CookiesProvider>
 )
 
 
