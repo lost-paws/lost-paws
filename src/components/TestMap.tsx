@@ -1,8 +1,26 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { Loader, LoaderOptions } from 'google-maps';
 import { SourceMapDevToolPlugin } from 'webpack';
+import { petsData } from './petsDataInterface'
 
-const Map: FC = () => {
+// interface petsData {
+//   lat: number,
+//   lng: number,
+//   _id: number,
+//   owner_id: number,
+//   date_last_seen: string,
+//   species: string,
+//   breed: string,
+//   description: string,
+//   name: string,
+//   img_src: string
+// }
+
+interface MapProps {
+    petsArray: petsData[]
+}
+
+const Map: FC<MapProps> = ({ petsArray }) => {
   //instantiate ref to attach map to
   const mapRef = useRef<HTMLDivElement| null>(null);
 
@@ -45,23 +63,27 @@ const Map: FC = () => {
         console.log('Map instance created:', map)
 
         //create id and container for map markers
-        let markerId = 0;
+        // let markerId = 0;
         const mapMarkers: { [key: number]: google.maps.Marker} = {};
 
         //add click event for generating markers
-        map.addListener('click', (clickEvent) => {
-          const lat = clickEvent.latLng.lat();
-          const lng = clickEvent.latLng.lng();
-          const clickCoords : google.maps.LatLngLiteral = {lat, lng};
-          const marker = new google.maps.Marker({
-            position: clickCoords,
-            map: map,
-          })
-
+        map.addListener('tilesloaded', () => {
+          console.log('inside map listener')
+          console.log('This is the petsArray inside mapListener', petsArray)
+          // iterate through pets array and generate a marker using each pets' lat and lng
+          for (let i = 0; i < petsArray.length; i++) {
+            console.log('in the for loop');
+            const lat = petsArray[i].lat;
+            const lng = petsArray[i].lng;
+            const petCoords: google.maps.LatLngLiteral = {lat, lng}            
+            const marker = new google.maps.Marker({
+              position: petCoords,
+              map: map,
+            })
+            mapMarkers[petsArray[i]._id] = marker;
+            console.log('These are the markers', mapMarkers)
+          }
           //add marker to array, iterate marker ID
-          mapMarkers[markerId] = marker;
-          markerId++;
-
         })
       }
     }
@@ -69,7 +91,7 @@ const Map: FC = () => {
   }, [])
 
   return (
-  <div ref={mapRef} className='map' style={{ height: '100%', width: '100%' }}></div>
+      <div ref={mapRef} className='map' style={{ height: '100%', width: '100%' }}></div>
   );
 };
 

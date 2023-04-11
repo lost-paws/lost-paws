@@ -12,9 +12,19 @@ interface petsControllerInterface {
 
 const petsController: petsControllerInterface = {
   fetchPets: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // this query will return all pets and return their lat and lng coordinates
+    // consider adding a where claus to filter for pets within a certain radius
+    const query = `
+    SELECT 
+    ST_X(loc_last_seen::geometry) AS lat, 
+    ST_Y(loc_last_seen::geometry) AS lng,
+    _id, owner_id, date_last_seen, species, breed, name, description, img_src
+    FROM pets`
+
     try {
-      const allPets = await db.query('SELECT * FROM "public"."pets" LIMIT 100');
+      const allPets = await db.query(query);
       res.locals.fetchedPets = allPets.rows;
+      console.log('These are the rows:', res.locals.fetchedPets)
       if (!allPets.rowCount) throw createHttpError(400, 'Pet not found');
       return next();
     } catch (err) {
@@ -40,10 +50,32 @@ const petsController: petsControllerInterface = {
   createPet: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     /* 
+    depending on how we want to implement client-side pin-setting, may need to look into:
+    -- google maps geocoding api (if we want do user-input address-based): https://developers.google.com/maps/documentation/javascript/geocoding
+    -- getting lat and lon based on where the pin is: https://stackoverflow.com/questions/5968559/retrieve-latitude-and-longitude-of-a-draggable-pin-via-google-maps-api-v3
+
+    !!!! in either case:
     for reference: before the query is submitted, loc_last_seen MUST be in this format:
+
     "SRID=4326;POINT(longitude latitude)"
-    There should be no comma betwen lng and lat
+
+    There should be NO comma betwen log and lat
     Remember that google maps generates them in the reverse order (lat lng), so they must be flipped to fit the posgis geogrpaphy data type
+    
+    video: https://www.youtube.com/watch?v=7IUBABSWgcE&t=343s
+    find pins within a given radius: https://postgis.net/docs/ST_DWithin.html
+
+    example req.body that works through postman:
+    {
+    "owner_id": 2,
+    "name": "Phillip",
+    "date_last_seen": "2023-04-01",
+    "loc_last_seen": "SRID=4326;POINT(-78.97814774767755 35.98060898687071)",
+    "species": "Star nosed mole",
+    "breed": "Star nosed mole",
+    "description": "He is small with a star nose. He has huge, terrifying claws capable of doing immeasurable harm."
+    } 
+
     */
 
     const {

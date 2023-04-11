@@ -7,11 +7,9 @@ import { borderRadius } from '@mui/system';
 
 const MapContainer: FC = () => {
   return (
-    <>
      <Container className='container' maxWidth="lg">
         <Box className='container' sx={{ bgcolor: '#cfe8fc', height: '100vh', borderRadius: '16px'}} />
       </Container>
-    </>
   )
 }
 
