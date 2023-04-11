@@ -68,20 +68,22 @@ const Map: FC<MapProps> = ({ petsArray }) => {
 
         //add click event for generating markers
         map.addListener('tilesloaded', () => {
-          console.log('inside map listener')
-          console.log('This is the petsArray inside mapListener', petsArray)
+          // console.log('inside map listener')
+          // console.log('This is the petsArray inside mapListener', petsArray)
           // iterate through pets array and generate a marker using each pets' lat and lng
           for (let i = 0; i < petsArray.length; i++) {
-            console.log('in the for loop');
+            //console.log('in the for loop');
             const lat = petsArray[i].lat;
             const lng = petsArray[i].lng;
-            const petCoords: google.maps.LatLngLiteral = {lat, lng}            
+            const petCoords: google.maps.LatLngLiteral = {lat, lng}    
+            // console.log('here are petCoords', petCoords);        
             const marker = new google.maps.Marker({
               position: petCoords,
               map: map,
             })
+            console.log('This is the position of the marker:', marker.getPosition()?.lat)
             mapMarkers[petsArray[i]._id] = marker;
-            console.log('These are the markers', mapMarkers)
+            //console.log('These are the markers', mapMarkers)
           }
           //add marker to array, iterate marker ID
         })

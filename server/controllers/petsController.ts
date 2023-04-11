@@ -16,8 +16,8 @@ const petsController: petsControllerInterface = {
     // consider adding a where claus to filter for pets within a certain radius
     const query = `
     SELECT 
-    ST_X(loc_last_seen::geometry) AS lat, 
-    ST_Y(loc_last_seen::geometry) AS lng,
+    ST_Y(loc_last_seen::geometry) AS lat, 
+    ST_X(loc_last_seen::geometry) AS lng,
     _id, owner_id, date_last_seen, species, breed, name, description, img_src
     FROM pets`
 

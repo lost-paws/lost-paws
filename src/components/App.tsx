@@ -49,7 +49,9 @@ const App: FC = (props) => {
       {/* <AddPet />
       <LoginButton /> */}
       {/* <p>{petsInfoArray[0].name}</p> */}
-      <Map petsArray={petsInfoArray}/>
+      { petsInfoArray.length &&
+        <Map petsArray={petsInfoArray}/>
+      }
     </>
   );
 };
