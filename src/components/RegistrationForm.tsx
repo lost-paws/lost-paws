@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import RegistrationFinder from '../apis/RegistrationFinder';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -24,6 +24,7 @@ import { report } from 'process';
 import { useNavigate } from "react-router-dom";
 
 
+import Cookies from 'universal-cookie';
 
 
 
@@ -32,7 +33,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function RegistrationForm() {
 
+//setting the redirect when a user clicks register
 const navigate = useNavigate();
+
+//setting the cookie
+
+//setCookie();
 
 const [username, setUserName] = useState('');
 const [password, setPassword] = useState('');
@@ -41,6 +47,8 @@ const [lastName, setLastName] = useState('');
 const [phoneNumber, setPhoneNumber ] = useState('');
 const [email, setEmail ] = useState('');
 const [address, setAddress] = useState('');
+//cookie validation
+
 
 
 
@@ -50,14 +58,15 @@ const [address, setAddress] = useState('');
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    
   };
 
 
 
-
+//BUTTON THAT HANDLES THE REGISTER ON OUR REGISTRATION PAGE
   const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  
     e.preventDefault()
-
     try {
       
       const response = await RegistrationFinder.post('/', {
@@ -68,13 +77,15 @@ const [address, setAddress] = useState('');
         phone_number: phoneNumber,
         email: email,
         address: address
-      })
+      });
       console.log('this is my response', response)
-      navigate('/')
+      //UNCOMMENT THIS TO HAVE REDIRECT
+      //navigate('/')
+      
+      
     } catch (err) {
       console.log(err)
     }
-
   }
 
   return (

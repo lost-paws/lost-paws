@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider} from "react-router-dom"
 import RegistrationPage from './components/RegistrationForm';
 
 
-import { CookiesProvider } from 'react-cookie';
 
 
 
@@ -27,11 +26,9 @@ const router = createBrowserRouter([
 const container = document.getElementById('root') as HTMLElement;
 
 ReactDOM.createRoot(container).render(
-    <CookiesProvider>
         <React.StrictMode>
             <RouterProvider router={router} />
         </React.StrictMode>
-    </CookiesProvider>
 )
 
 

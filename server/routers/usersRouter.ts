@@ -14,6 +14,7 @@ router.get('/:id', usersController.fetchUser, (req: Request, res: Response) => {
 })
 
 // create a new user
+//add middleware cookie here
 router.post('/', usersController.createUser, (req: Request, res: Response) => {
   res.status(201).json(res.locals.newUser)
 })
