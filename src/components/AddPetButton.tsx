@@ -3,9 +3,6 @@ import Button from '@mui/material/Button';
 import AddPetModal from './AddPetModal';
 
 
-interface Props {
-
-}
 
 const AddPet: FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -16,7 +13,7 @@ const AddPet: FC = () => {
       bgcolor: "#A1CDF1",
       color: "white"
     }}} onClick={() => setOpenModal(true)}>Add Pet</Button>
-    {openModal && <AddPetModal setOpenModal={setOpenModal}/>}
+    {openModal && <AddPetModal openState={openModal} setOpenModal={setOpenModal}/>}
     </>
   );
 };
