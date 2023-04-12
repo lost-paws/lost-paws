@@ -30,9 +30,15 @@ const usersController = {
     // hash the password
 
     // make SQL command
+    // const command = `
+    // INSERT INTO users (first_name, last_name, username, password, phone_number, address, email)
+    // OUTPUT Inserted._id
+    // VALUES ($1, $2, $3, $4, $5, $6, $7)`
+
     const command = `
     INSERT INTO users (first_name, last_name, username, password, phone_number, address, email)
     VALUES ($1, $2, $3, $4, $5, $6, $7)`
+
     const values = [first_name, last_name, username, password, phone_number, address, email];
     console.log(command, values)
     try {

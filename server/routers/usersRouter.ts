@@ -2,6 +2,8 @@ import express, { Router, Request, Response, NextFunction } from 'express';
 import { db } from '../models/db'
 import usersController from '../controllers/usersController';
 
+import cookieController from '../controllers/cookieController';
+
 const router: Router = express.Router();
 
 // get all users
@@ -15,7 +17,10 @@ router.get('/:id', usersController.fetchUser, (req: Request, res: Response) => {
 
 // create a new user
 //add middleware cookie here
-router.post('/', usersController.createUser, (req: Request, res: Response) => {
+//cookieController.setUserIDCookie
+router.post('/', usersController.createUser, cookieController.setUserIDCookie, (req: Request, res: Response) => {
+  console.log(res.locals.newUser)
+  console.log('this is the cookie', cookieController.setUserIDCookie)
   res.status(201).json(res.locals.newUser)
 })
 // update an existing user
