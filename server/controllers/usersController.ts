@@ -37,7 +37,6 @@ const usersController: usersControllerInterface = {
   createUser: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     // destructure req.body
     const { first_name, last_name, phone_number, address, username, password, email } = req.body;
-    const { first_name, last_name, phone_number, address, username, password, email } = req.body;
     // hash the password
 
     // make SQL command

@@ -45,9 +45,9 @@ const App: FC = (props) => {
       {/* <AddPet />
       <LoginButton /> */}
       {/* <p>{petsInfoArray[0].name}</p> */}
+      <RegistrationButton />
       { petsInfoArray.length &&
-        <RegistrationButton />
-      <Map  petsArray={petsInfoArray}/>
+        <Map  petsArray={petsInfoArray}/>
       }
     </>
   );

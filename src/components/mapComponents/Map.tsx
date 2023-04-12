@@ -23,6 +23,7 @@ export default function Map({
   children,
   ...options
 }: MapProps) {
+
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
