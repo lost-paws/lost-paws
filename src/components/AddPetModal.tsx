@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal'
@@ -9,17 +10,21 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import PetsFinder from '../apis/PetsFinder';
+import Button from '@mui/material/Button';
 
 const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     position: 'absolute',
-    width: 500,
+    width: 550,
+    height: 450,
     border: '2px solid #000',
+    borderRadius: '15px',
     display: 'flex',
     flexDirection: 'column',
-    columnGap: '10px'
+    columnGap: '10px',
+    bgcolor: "white"
 }
 
 
@@ -103,8 +108,8 @@ const AddPetModal = (props) => {
 
             </div>
             <div className = "footer">
-                <button onClick={() => addAnimaltoDataBase()}>Submit</button>
-                <button onClick={() => props.setOpenModal(false)}>Cancel</button>
+                <Button variant="contained" onClick={() => addAnimaltoDataBase()}>Submit</Button>
+                <Button variant="contained" onClick={() => props.setOpenModal(false)}>Cancel</Button>
             </div>
             </Box>
         </Modal>
