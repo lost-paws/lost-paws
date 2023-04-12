@@ -4,7 +4,12 @@ import { createRoot } from 'react-dom/client';
 import App from './components/App';
 import ErrorPage from "./error-page";
 import { createBrowserRouter, RouterProvider} from "react-router-dom"
+import RegistrationPage from './components/RegistrationForm';
 import LoginPage from './components/LoginPage';
+
+
+
+
 
 const router = createBrowserRouter([
     {
@@ -13,17 +18,23 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
     },
     {
-        path: "/login",
-        element: <LoginPage />
+        path: "/register",
+        element: <RegistrationPage />,
+        errorElement: <ErrorPage />
     },
-]);
+    {
+        path: "/login",
+        element: <LoginPage />,
+        errorElement: <ErrorPage />
+    }
+])
 
 const container = document.getElementById('root') as HTMLElement;
 
 ReactDOM.createRoot(container).render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+        <React.StrictMode>
+            <RouterProvider router={router} />
+        </React.StrictMode>
 )
 
 

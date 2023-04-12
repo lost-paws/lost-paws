@@ -3,7 +3,8 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import './MapContainer.css';
 import { borderRadius } from '@mui/system';
-import TestMap from './components/TestMap';
+import TestMap from './TestMap';
+
 
 
 const MapContainer: FC = () => {

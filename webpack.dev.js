@@ -29,9 +29,9 @@ module.exports = merge(common, {
     hot: true,
     liveReload: true,
     historyApiFallback: true,
-    // proxy: {
-    //   context: ['/api/v1/dreams', '/api/v1/interp'],
-    //   target: 'http://localhost:6968',
-    // },
+    proxy: {
+      context: ['/api/v1/users', '/api/v1/pets'],
+      target: 'http://localhost:8000',
+    },
   },
 });

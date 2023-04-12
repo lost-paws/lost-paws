@@ -1,0 +1,23 @@
+.register {
+  font-family: "Roboto";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  font-size: 46px;
+}
+
+.home-btn {
+  display: flex;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 600px 0 590px;
+
+
+}

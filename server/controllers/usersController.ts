@@ -26,17 +26,30 @@ const usersController = {
 
   createUser: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     // destructure req.body
-    const { firstName, lastName, phoneNumber, address, username, password, email } = req.body;
+    const { first_name, last_name, phone_number, address, username, password, email } = req.body;
     // hash the password
 
     // make SQL command
+    // const command = `
+    // INSERT INTO users (first_name, last_name, username, password, phone_number, address, email)
+    // OUTPUT Inserted._id
+    // VALUES ($1, $2, $3, $4, $5, $6, $7)`
+
     const command = `
     INSERT INTO users (first_name, last_name, username, password, phone_number, address, email)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)`
-    const values = [firstName, lastName, username, password, phoneNumber, address, email];
+    VALUES ($1, $2, $3, $4, $5, $6, $7)returning _id;`
+ 
+    //const command = `
+    // INSERT INTO users (first_name, last_name, username, password, phone_number, address, email)
+    // VALUES ($1, $2, $3, $4, $5, $6, $7); SELECT _id 
+    // FROM users WHERE first_name='${first_name}' AND last_name='${last_name}'`
+
+    const values = [first_name, last_name, username, password, phone_number, address, email];
+    console.log(command, values)
     try {
       const newUser = await db.query(command, values);
-      res.locals.newUser = newUser;
+      //this is where are setting the id within the rows object
+      res.locals.newUser = newUser.rows[0]._id;
       return next()
     } catch (err) {
       return next(createHttpError(400, 'Could not create user in usersController.createUser'))
