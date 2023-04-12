@@ -7,13 +7,20 @@ import { db } from './models/db'
 import { dbRouter } from './routers/dbrouter'
 import usersRouter from './routers/usersRouter'
 
+
+
+
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+
 const app: Express = express();
 
 
 // UTILITY ROUTES
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(morgan('dev'));
 app.use(express.json());
-
+app.use(cookieParser())
 // UNPROTECTED ROUTES
 app.get('/', (req: Request, res: Response) => {
   res.send('hello');
