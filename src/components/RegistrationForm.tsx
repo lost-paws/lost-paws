@@ -24,7 +24,7 @@ import { report } from 'process';
 import { useNavigate } from "react-router-dom";
 
 
-import Cookies from 'universal-cookie';
+
 
 
 
@@ -77,10 +77,10 @@ const [address, setAddress] = useState('');
         phone_number: phoneNumber,
         email: email,
         address: address
-      });
+      }, {withCredentials: true});
       console.log('this is my response', response)
       //UNCOMMENT THIS TO HAVE REDIRECT
-      //navigate('/')
+      navigate('/')
       
       
     } catch (err) {

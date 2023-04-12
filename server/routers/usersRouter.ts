@@ -22,6 +22,7 @@ router.post('/', usersController.createUser, cookieController.setUserIDCookie, (
   console.log(res.locals.newUser)
   console.log('this is the cookie', cookieController.setUserIDCookie)
   res.status(201).json(res.locals.newUser)
+  //res.status(201).json(res.locals.newUser)
 })
 // update an existing user
 router.patch('/:id', usersController.updateUser, (req: Request, res: Response) => {
