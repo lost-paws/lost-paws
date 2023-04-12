@@ -5,23 +5,7 @@ import LoginButton from './LoginButton';
 import Map from './TestMap';
 import { petsData } from './petsDataInterface';
 
-// interface petsData {
-//   lat: number,
-//   lng: number,
-//   _id: number,
-//   owner_id: number,
-//   date_last_seen: string,
-//   species: string,
-//   breed: string,
-//   description: string,
-//   name: string,
-//   img_src: string
-// }
-
-
 const App: FC = (props) => {
-
-  // const petsArray: petsData[] = []
 
   const [petsInfoArray, setPetsInfoArray] = React.useState<petsData[]>([]);
 

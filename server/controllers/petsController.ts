@@ -88,10 +88,13 @@ const petsController: petsControllerInterface = {
       description
     } = req.body;
 
+    const { lat, lng } = loc_last_seen;
+    const geo = `SRID=4326;POINT(${lng} ${lat})`
+
     const command = `
     INSERT INTO pets (owner_id, name, date_last_seen, loc_last_seen, species, breed, description)
     VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-    const values = [owner_id, name, date_last_seen, loc_last_seen, species, breed, description];
+    const values = [owner_id, name, date_last_seen, geo, species, breed, description];
     try {
       const newPet = await db.query(command, values);
       res.locals.newPet = newPet;

@@ -14,7 +14,7 @@ const pool = new Pool({
   database: process.env.PG_DB,
   password: process.env.PG_PSWD,
   port: 5432,
-})
+});
 
 export const db = {
   query: async (queryStr: string, values?: unknown[]): Promise<QueryResult<any>> => {

@@ -1,20 +1,9 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { Loader, LoaderOptions } from 'google-maps';
 import { SourceMapDevToolPlugin } from 'webpack';
+import ReactDOMServer from 'react-dom/server';
 import { petsData } from './petsDataInterface'
 
-// interface petsData {
-//   lat: number,
-//   lng: number,
-//   _id: number,
-//   owner_id: number,
-//   date_last_seen: string,
-//   species: string,
-//   breed: string,
-//   description: string,
-//   name: string,
-//   img_src: string
-// }
 
 interface MapProps {
     petsArray: petsData[]
@@ -76,12 +65,32 @@ const Map: FC<MapProps> = ({ petsArray }) => {
             const lat = petsArray[i].lat;
             const lng = petsArray[i].lng;
             const petCoords: google.maps.LatLngLiteral = {lat, lng}    
-            // console.log('here are petCoords', petCoords);        
+            // console.log('here are petCoords', petCoords);  
             const marker = new google.maps.Marker({
               position: petCoords,
               map: map,
             })
+
+
+            const infoWindow = new window.google.maps.InfoWindow({
+              content: '',
+            });
+
+            const button = <button onClick={() => console.log('CLICKED THIS BUTTON')}>CLICK THIS BUTTON</button>
+            marker.addListener('click', () => {
+              const content = ReactDOMServer.renderToString(
+              <div>
+                {button}
+              </div>);
+              infoWindow.setContent(content);
+              infoWindow.open(map, marker);
+            })
+
+
+
+
             console.log('This is the position of the marker:', marker.getPosition()?.lat)
+            // add an event listener to each marker
             mapMarkers[petsArray[i]._id] = marker;
             //console.log('These are the markers', mapMarkers)
           }

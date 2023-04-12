@@ -42,11 +42,13 @@ const usersController: usersControllerInterface = {
     // make SQL command
     const command = `
     INSERT INTO users (first_name, last_name, username, password, phone_number, address, email)
+    OUTPUT Inserted._id
     VALUES ($1, $2, $3, $4, $5, $6, $7)`
     const values = [first_name, last_name, username, password, phone_number, address, email];
     try {
       const newUser = await db.query(command, values);
       res.locals.newUser = newUser;
+      console.log('does this returned value from the query store the new users _id?', newUser);
       return next()
     } catch (err) {
       return next(createHttpError(400, 'Could not create user in usersController.createUser'))
