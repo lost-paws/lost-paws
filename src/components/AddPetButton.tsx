@@ -1,21 +1,20 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Button from '@mui/material/Button';
+import AddPetModal from './AddPetModal';
 
 
-
-const petAdded = () => {
-  console.log('Once click, a pet should be added')
-}
 
 const AddPet: FC = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
   return (
     <>
     <Button variant="contained" sx={{ bgcolor: 'dda15e',  ":hover": {
       bgcolor: "#A1CDF1",
       color: "white"
-    }}} onClick={() => petAdded()}>Add Pet</Button>
+    }}} onClick={() => setOpenModal(true)}>Add Pet</Button>
+    {openModal && <AddPetModal openState={openModal} setOpenModal={setOpenModal}/>}
     </>
-    // <button className='addPet-btn' onClick={() => handleClick()}>Login</button>
   );
 };
 
