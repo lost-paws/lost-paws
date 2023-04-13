@@ -2,10 +2,19 @@ import { Request, Response, NextFunction } from 'express';
 import { db } from '../models/db';
 import createHttpError from 'http-errors'
 
-const usersController = {
+interface usersControllerInterface {
+  fetchUsers: (req: Request, res: Response, next: NextFunction) => Promise<void>,
+  fetchUser: (req: Request, res: Response, next: NextFunction) => Promise<void>,
+  createUser: (req: Request, res: Response, next: NextFunction) => Promise<void>,
+  updateUser: (req: Request, res: Response, next: NextFunction) => Promise<void>,
+  deleteUser: (req: Request, res: Response, next: NextFunction) => Promise<void>,
+}
+
+const usersController: usersControllerInterface = {
   fetchUsers: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const allUsers = await db.query('SELECT * FROM "public"."users" LIMIT 100')
+      if (!allUsers.rowCount) throw createHttpError(400, 'Users not found');
       res.locals.fetchedUsers = allUsers.rows;
       return next()
     } catch (err) {
@@ -17,7 +26,8 @@ const usersController = {
     try {
       const values = [req.params.id];
       const user = await db.query('SELECT * FROM "public"."users" WHERE _id = $1', values)
-      res.locals.fetchedUser = user.rows;
+      if (!user.rowCount) throw createHttpError(400, 'User not found');
+      res.locals.fetchedUser = user.rows[0];
       return next();
     } catch (err) {
       return next(createHttpError(400, 'Could not fetch user in userController.fetchUser'))
@@ -69,13 +79,13 @@ const usersController = {
   },
 
   updateUser: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { firstName, lastName, phoneNumber, address, username, password, email } = req.body;
+    const { first_name, last_name, phone_number, address, username, password, email } = req.body;
     const { id } = req.params;
     const command = `
     UPDATE "public"."users"
     SET first_name = $1, last_name = $2, phone_number = $3, address = $4, username = $5, password = $6, email = $7
     WHERE _id = $8`
-    const values = [firstName, lastName, phoneNumber, address, username, password, email, id];
+    const values = [first_name, last_name, phone_number, address, username, password, email, id];
     try {
       const updatedUser = await db.query(command, values);
       res.locals.updatedUser = updatedUser;
@@ -84,12 +94,15 @@ const usersController = {
       return next(createHttpError(400, 'Could not update user in usersController.updateUser'));
     }
   },
+
   // verifyUser: async( req: Request, res: Response, next: NextFunction): Promise<void> => {
   //   const { username, password } = req.body;
   //   try {
   //     // query users table for a user whose username matches
   //     // use bcrypt.compare to check if password matches password in db
   //       // this is an async func that returns a boolean
+  //   } catch (error) {
+
   //   }
   // }
 
