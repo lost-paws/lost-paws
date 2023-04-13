@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import './MapContainer.css';
 import { borderRadius } from '@mui/system';
-import TestMap from './TestMap';
+import Map from './Map';
 import { petsData } from './petsDataInterface';
 import _ from 'lodash';
 
@@ -30,7 +30,7 @@ const MapContainer: FC = () => {
 
   return (
      <Container className='container' maxWidth="lg">
-        <TestMap petsArray={petsInfoArray} />
+        <Map petsArray={petsInfoArray} />
       </Container>
   )
 }

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import PetsMarker from './PetsMarker';
-import petsData from './petsInterface';
+import { petsData } from './petsDataInterface';
 
 interface MapProps {
   petsArray: petsData[]
@@ -28,7 +28,7 @@ const Map: FC<MapProps> = ({ petsArray }) => {
           };
           console.log('These are the userCoords:', userCoords);
           setCenter(userCoords);
-          setZoom(5);
+          setZoom(10);
           setIsGeolocationFetched(true);
         });
       }
@@ -41,7 +41,6 @@ const Map: FC<MapProps> = ({ petsArray }) => {
     const petsDataToRender = petsArray.map((petData, i) => {
       const { lat, lng } = petData
       return (
-        // <Button lat={lat} lng={lng}>petData.name</Button>
         <PetsMarker key={i} lat = {lat} lng={lng} petData={petData}/>
       )
     })
