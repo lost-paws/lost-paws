@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import PetsIcon from '@mui/icons-material/Pets';
 import { petsData } from './petsDataInterface';
+import PetCard from './PetCard';
 
 interface Coords {
   lat: number;
@@ -10,21 +11,26 @@ interface Coords {
 interface MarkerProps extends Coords {
   petData?: petsData
 }
-const [showPetCard, setShowPetCard] = useState(false);
+
 
 const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
+  const [showPetCard, setShowPetCard] = useState(false);
+
   return (
-    <PetsIcon
-    sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
-      bgcolor: "#A1CDF1",
-      color: "white"
-    }}}
-      onClick={() => {
-        setShowPetCard(true);
-      }}
-    >
-      {/* {text || 'CLICK THIS'} */}
-    </PetsIcon>
+    <>
+      <PetsIcon
+      sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
+        bgcolor: "#A1CDF1",
+        color: "white"
+      }}}
+        onClick={() => {
+          setShowPetCard(true);
+        }}
+      >
+        {/* {text || 'CLICK THIS'} */}
+      </PetsIcon>
+      {showPetCard && <PetCard setShowPetCard={setShowPetCard} petData={petData}/>}
+    </>
   );
 };
 
