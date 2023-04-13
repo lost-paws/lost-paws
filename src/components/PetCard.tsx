@@ -19,28 +19,27 @@ type petDataType = {
 }
 
 interface setShowPetCardProps {
-    setShowPetCard: React.Dispatch<React.SetStateAction<boolean>>,
-    petData: petDataType
+    setShowPetCard?: React.Dispatch<React.SetStateAction<boolean>>,
+    petData?: petDataType
 }
-const PetCard: FC<setShowPetCardProps> = () => {
+
+const PetCard: FC<setShowPetCardProps> = ({setShowPetCard, petData}): JSX.Element => {
 
     return (
         // <Modal
         // open={true}
-            <Box>
+            <Box> 
             <div className = "title">
-                <h1>Enter your pet information.</h1>
+                <h1>Pet Name</h1>
             </div>
             <div className = "form">
-
-
                 {/* Breed Field */}
                 <TextField fullWidth label='Breed' variant='filled'></TextField>
 
                 {/*Location Last Seen Field */}
                 <TextField fullWidth label='Location Last Seen' variant='filled'></TextField>
             </div>
-            <Button>Go Back</Button>
+            <Button variant="contained" onClick={() => console.log('clicked!')}>Go Back</Button>
             </Box>
         // </Modal>
     );
