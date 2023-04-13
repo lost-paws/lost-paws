@@ -15,11 +15,8 @@ import { withCookies } from 'react-cookie';
 
 
 
-
-
-
 const App: FC = (props) => {
-  
+
   return (
     <>
       <h1>all dogs go to  heaven</h1>
