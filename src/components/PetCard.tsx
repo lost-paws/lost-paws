@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -20,26 +21,41 @@ type petDataType = {
 
 interface setShowPetCardProps {
     setShowPetCard?: React.Dispatch<React.SetStateAction<boolean>>,
-    petData?: petDataType
+    petData: petDataType
 }
 
 const PetCard: FC<setShowPetCardProps> = ({setShowPetCard, petData}): JSX.Element => {
+    console.log('petdata inside pet card component -->', petData)
+
+    const editPetCard = () => {
+        //first need to check that this is the user
+        console.log('edited!')
+    }
+
+    const deletePetCard = () => {
+        console.log('deleted')
+    }
 
     return (
         // <Modal
         // open={true}
             <Box> 
             <div className = "title">
-                <h1>Pet Name</h1>
+                <h1>{petData.name}</h1>
+                <h2>{petData.breed} - {petData.species}</h2>
+                //need to add logic for owner and image
             </div>
             <div className = "form">
                 {/* Breed Field */}
-                <TextField fullWidth label='Breed' variant='filled'></TextField>
+                <Typography>{petData.description}</Typography>
+                <Typography>Last Seen on: {petData.date_last_seen}</Typography>
 
                 {/*Location Last Seen Field */}
-                <TextField fullWidth label='Location Last Seen' variant='filled'></TextField>
+
             </div>
-            <Button variant="contained" onClick={() => console.log('clicked!')}>Go Back</Button>
+            <Button variant="contained" onClick={() => setShowPetCard(false)}>Go Back</Button>
+            <Button variant='contained' onClick={() => editPetCard()}>Edit Pet Info</Button>
+            <Button variant='contained' onClick={() => deletePetCard()}>Delete Entry </Button>
             </Box>
         // </Modal>
     );

@@ -16,7 +16,7 @@ const Map: FC<MapProps> = ({ petsArray }) => {
 
   const [center, setCenter] = useState<Coords>({ lat: 0, lng: 0 });
   const [zoom, setZoom] = useState(0);
-  const [isGeolocationFetched, setIsGeolocationFetched] = useState(false);
+  const [isGeolocationFetched, setIsGeolocationFetched] = useState(true);
 
   useEffect(() => {
     const queryGeolocation = async () => {
@@ -35,7 +35,7 @@ const Map: FC<MapProps> = ({ petsArray }) => {
     };
 
     queryGeolocation();
-  }, []);
+  }, [isGeolocationFetched]);
 
     // iterate through petsArray
     const petsDataToRender = petsArray.map((petData, i) => {
