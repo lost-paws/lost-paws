@@ -8,7 +8,7 @@ interface Coords {
 }
 
 interface MarkerProps extends Coords {
-  petData?: petsData
+  petData: petsData
 }
 
 const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
@@ -19,7 +19,7 @@ const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
       color: "white"
     }}}
       onClick={() => {
-        console.log('THIS HAS BEEN CLICKED');
+        console.log(petData.name);
       }}
     >
       {/* {text || 'CLICK THIS'} */}

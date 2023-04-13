@@ -15,11 +15,7 @@ const petsController: petsControllerInterface = {
     // this query will return all pets and return their lat and lng coordinates
     // consider adding a where claus to filter for pets within a certain radius
     const query = `
-    SELECT 
-    ST_Y(loc_last_seen::geometry) AS lat, 
-    ST_X(loc_last_seen::geometry) AS lng,
-    _id, owner_id, date_last_seen, species, breed, name, description, img_src
-    FROM pets`
+    SELECT * FROM pets`
 
     try {
       const allPets = await db.query(query);
@@ -49,53 +45,30 @@ const petsController: petsControllerInterface = {
 
   createPet: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
-    /* 
-    depending on how we want to implement client-side pin-setting, may need to look into:
-    -- google maps geocoding api (if we want do user-input address-based): https://developers.google.com/maps/documentation/javascript/geocoding
-    -- getting lat and lon based on where the pin is: https://stackoverflow.com/questions/5968559/retrieve-latitude-and-longitude-of-a-draggable-pin-via-google-maps-api-v3
-
-    !!!! in either case:
-    for reference: before the query is submitted, loc_last_seen MUST be in this format:
-
-    "SRID=4326;POINT(longitude latitude)"
-
-    There should be NO comma betwen log and lat
-    Remember that google maps generates them in the reverse order (lat lng), so they must be flipped to fit the posgis geogrpaphy data type
-    
-    video: https://www.youtube.com/watch?v=7IUBABSWgcE&t=343s
-    find pins within a given radius: https://postgis.net/docs/ST_DWithin.html
-
-    example req.body that works through postman:
-    {
-    "owner_id": 2,
-    "name": "Phillip",
-    "date_last_seen": "2023-04-01",
-    "loc_last_seen": "SRID=4326;POINT(-78.97814774767755 35.98060898687071)",
-    "species": "Star nosed mole",
-    "breed": "Star nosed mole",
-    "description": "He is small with a star nose. He has huge, terrifying claws capable of doing immeasurable harm."
-    } 
-
-    */
-
     const {
       owner_id,
       name,
       date_last_seen,
-      loc_last_seen,
+      lat,
+      lng,
+      address,
       species,
       breed,
       description
     } = req.body;
 
-    const { lat, lng } = loc_last_seen;
-    console.log(lat, lng);
-    const geo = `SRID=4326;POINT(${lng} ${lat})`
+    // will need to convert address into lat and lng using google maps api geocoder:
+    // https://www.youtube.com/watch?v=2IIhGA1cfmc
+    // once we have achieved this functionality, we will want to delete the lat and lng
+    // properties from req.body, as the user will only send the address
+    // and we will convert it to lat/lng (I'm thinking here, since we'll need lat/lng)
+    // to send to the database in the below query:
+
 
     const command = `
-    INSERT INTO pets (owner_id, name, date_last_seen, loc_last_seen, species, breed, description)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-    const values = [owner_id, name, date_last_seen, loc_last_seen, species, breed, description];
+    INSERT INTO pets (owner_id, name, date_last_seen, address, lat, lng, species, breed, description)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
+    const values = [owner_id, name, date_last_seen, address, lat, lng, species, breed, description];
     try {
       const newPet = await db.query(command, values);
       res.locals.newPet = newPet;
@@ -120,9 +93,12 @@ const petsController: petsControllerInterface = {
 
   updatePet: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const {
+      owner_id,
       name,
       date_last_seen,
-      loc_last_seen,
+      lat,
+      lng,
+      address,
       species,
       breed,
       description
@@ -130,9 +106,9 @@ const petsController: petsControllerInterface = {
     const { id } = req.params;
     const command = `
     UPDATE "public"."pets"
-    SET name = $1, date_last_seen = $2, loc_last_seen = $3, species = $4, breed = $5, description = $6
-    WHERE _id = $7`
-    const values = [name, date_last_seen, loc_last_seen, species, breed, description, id];
+    SET name = $1, date_last_seen = $2, lat = $3, lng = $4, address = $5, species = $6, breed = $7, description = $8
+    WHERE _id = $9`
+    const values = [name, date_last_seen, lat, lng, address, species, breed, description, id];
     try {
       const updatedPet = await db.query(command, values);
       res.locals.updatedPet = updatedPet;
