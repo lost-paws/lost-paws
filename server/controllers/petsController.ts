@@ -24,7 +24,7 @@ const petsController: petsControllerInterface = {
     try {
       const allPets = await db.query(query);
       res.locals.fetchedPets = allPets.rows;
-      console.log('These are the rows:', res.locals.fetchedPets)
+      // console.log('These are the rows:', res.locals.fetchedPets)
       if (!allPets.rowCount) throw createHttpError(400, 'Pet not found');
       return next();
     } catch (err) {
@@ -38,7 +38,7 @@ const petsController: petsControllerInterface = {
       const command = 'SELECT * FROM "public"."pets" WHERE _id = $1';
       const values = [id];
       const pet = await db.query(command, values);
-      console.log(pet);
+      // console.log(pet);
       if (!pet.rowCount) throw createHttpError(400, 'Pet not found');
       res.locals.fetchedPet = pet.rows[0];
       return next();
@@ -89,12 +89,13 @@ const petsController: petsControllerInterface = {
     } = req.body;
 
     const { lat, lng } = loc_last_seen;
+    console.log(lat, lng);
     const geo = `SRID=4326;POINT(${lng} ${lat})`
 
     const command = `
     INSERT INTO pets (owner_id, name, date_last_seen, loc_last_seen, species, breed, description)
     VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-    const values = [owner_id, name, date_last_seen, geo, species, breed, description];
+    const values = [owner_id, name, date_last_seen, loc_last_seen, species, breed, description];
     try {
       const newPet = await db.query(command, values);
       res.locals.newPet = newPet;

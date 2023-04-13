@@ -1,110 +1,67 @@
-import React, { FC, useEffect, useRef } from 'react';
-import { Loader, LoaderOptions } from 'google-maps';
-import { SourceMapDevToolPlugin } from 'webpack';
-import ReactDOMServer from 'react-dom/server';
-import { petsData } from './petsDataInterface'
-
+import React, { FC, useEffect, useState } from 'react';
+import GoogleMapReact from 'google-map-react';
+import PetsMarker from './PetsMarker';
+import petsData from './petsInterface';
 
 interface MapProps {
-    petsArray: petsData[]
+  petsArray: petsData[]
 }
 
 const Map: FC<MapProps> = ({ petsArray }) => {
-  //instantiate ref to attach map to
-  const mapRef = useRef<HTMLDivElement| null>(null);
-
-
-  //api config
-  const options: LoaderOptions = {};
-  const loader = new Loader('AIzaSyBro2kUXbOjXXxiQqn7bhx1Udcf5Nowx4c', options);
-
-  //interface for position
-  interface LatLong {
-    lat? : number;
-    long?: number;
+  // Interface for position
+  interface Coords {
+    lat: number;
+    lng: number;
   }
 
-  useEffect(() => {
+  const [center, setCenter] = useState<Coords>({ lat: 0, lng: 0 });
+  const [zoom, setZoom] = useState(0);
+  const [isGeolocationFetched, setIsGeolocationFetched] = useState(false);
 
-    //intialize map
-    const initMap = async () => {
-      const userCoords = {lat: 0, long: 0}
-      //query user location
-      if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-          userCoords.lat = position.coords.latitude;
-          userCoords.long = position.coords.longitude;
+  useEffect(() => {
+    const queryGeolocation = async () => {
+      if (navigator.geolocation) {
+        await navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+          const userCoords: Coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
           console.log('These are the userCoords:', userCoords);
+          setCenter(userCoords);
+          setZoom(5);
+          setIsGeolocationFetched(true);
         });
       }
-      console.log('Loading maps API');
-      //load loader
-      const google = await loader.load();
-      console.log('Google maps api:', google);
-      //create map object
-      if (mapRef.current) {
-        console.log('mapRef.current is not null:', mapRef.current);
-        console.log('Creating new map instance...');
-        const map = new google.maps.Map(mapRef.current, {
-          center: { lat: userCoords.lat, lng: userCoords.long },
-          zoom: 8,
-        })
-        console.log('Map instance created:', map)
+    };
 
-        //create id and container for map markers
-        // let markerId = 0;
-        const mapMarkers: { [key: number]: google.maps.Marker} = {};
+    queryGeolocation();
+  }, []);
 
-        //add click event for generating markers
-        map.addListener('tilesloaded', () => {
-          // console.log('inside map listener')
-          // console.log('This is the petsArray inside mapListener', petsArray)
-          // iterate through pets array and generate a marker using each pets' lat and lng
-          for (let i = 0; i < petsArray.length; i++) {
-            //console.log('in the for loop');
-            const lat = petsArray[i].lat;
-            const lng = petsArray[i].lng;
-            const petCoords: google.maps.LatLngLiteral = {lat, lng}    
-            // console.log('here are petCoords', petCoords);  
-            const marker = new google.maps.Marker({
-              position: petCoords,
-              map: map,
-            })
-
-
-            const infoWindow = new window.google.maps.InfoWindow({
-              content: '',
-            });
-
-            const button = <button onClick={() => console.log('CLICKED THIS BUTTON')}>CLICK THIS BUTTON</button>
-            marker.addListener('click', () => {
-              const content = ReactDOMServer.renderToString(
-              <div>
-                {button}
-              </div>);
-              infoWindow.setContent(content);
-              infoWindow.open(map, marker);
-            })
-
-
-
-
-            console.log('This is the position of the marker:', marker.getPosition()?.lat)
-            // add an event listener to each marker
-            mapMarkers[petsArray[i]._id] = marker;
-            //console.log('These are the markers', mapMarkers)
-          }
-          //add marker to array, iterate marker ID
-        })
-      }
-    }
-    initMap();
-  }, [])
+    // iterate through petsArray
+    const petsDataToRender = petsArray.map((petData, i) => {
+      const { lat, lng } = petData
+      return (
+        // <Button lat={lat} lng={lng}>petData.name</Button>
+        <PetsMarker key={i} lat = {lat} lng={lng} petData={petData}/>
+      )
+    })
 
   return (
-      <div ref={mapRef} className='map' style={{ height: '100%', width: '100%' }}></div>
+    <div style={{ height: '100vh', width: '100%' }}>
+      {isGeolocationFetched ? (
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: 'AIzaSyBro2kUXbOjXXxiQqn7bhx1Udcf5Nowx4c' }}
+          defaultCenter={center}
+          defaultZoom={zoom}
+        >
+          {petsDataToRender}
+          {/* <Button lat = {59.955413} lng={30.337844} text="Marker"/> */}
+        </GoogleMapReact>
+      ) : (
+        <div>Loading map...</div>
+      )}
+    </div>
   );
 };
 
 export default Map;
-
