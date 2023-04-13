@@ -5,26 +5,27 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import React, {FC, useState} from 'react';
 import { petsData } from './petsDataInterface';
+//@ts-ignore
 
-type petDataType = {
-    lat: number,
-    lng: number,
-    _id: number,
-    owner_id: number,
-    date_last_seen: string,
-    species: string,
-    breed: string,
-    description: string,
-    name: string,
-    img_src: string
-}
+// type petDataType = {
+//     lat: number,
+//     lng: number,
+//     _id: number,
+//     owner_id: number,
+//     date_last_seen: string,
+//     species: string,
+//     breed: string,
+//     description: string,
+//     name: string,
+//     img_src: string
+// }
 
-interface setShowPetCardProps {
-    setShowPetCard?: React.Dispatch<React.SetStateAction<boolean>>,
-    petData: petDataType
-}
+// interface setShowPetCardProps {
+//     setShowPetCard?: React.Dispatch<React.SetStateAction<boolean>>,
+//     petData?: petDataType
+// }
 
-const PetCard: FC<setShowPetCardProps> = ({setShowPetCard, petData}): JSX.Element => {
+const PetCard = ({petData, setShowPetCard}) => {
     console.log('petdata inside pet card component -->', petData)
 
     const editPetCard = () => {

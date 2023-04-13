@@ -14,7 +14,7 @@ const Map: FC<MapProps> = ({ petsArray }) => {
     lng: number;
   }
 
-  const [center, setCenter] = useState<Coords>({ lat: 0, lng: 0 });
+  const [center, setCenter] = useState<Coords>({ lat: 48.769768, lng: -122.485886 });
   const [zoom, setZoom] = useState(0);
   const [isGeolocationFetched, setIsGeolocationFetched] = useState(true);
 
@@ -45,22 +45,22 @@ const Map: FC<MapProps> = ({ petsArray }) => {
       )
     })
 
-  return (
-    <div style={{ height: '100vh', width: '100%' }}>
-      {isGeolocationFetched ? (
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyBro2kUXbOjXXxiQqn7bhx1Udcf5Nowx4c' }}
-          defaultCenter={center}
-          defaultZoom={zoom}
-        >
-          {petsDataToRender}
-          {/* <Button lat = {59.955413} lng={30.337844} text="Marker"/> */}
-        </GoogleMapReact>
-      ) : (
-        <div>Loading map...</div>
-      )}
-    </div>
-  );
+    return (
+      <div style={{ height: '100vh', width: '100%' }}>
+        {center ? (
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: 'AIzaSyBro2kUXbOjXXxiQqn7bhx1Udcf5Nowx4c' }}
+            defaultCenter={center}
+            defaultZoom={zoom}
+          >
+            {petsDataToRender}
+            {/* <Button lat = {59.955413} lng={30.337844} text="Marker"/> */}
+          </GoogleMapReact>
+        ) : (
+          <div>Loading map...</div>
+        )}
+      </div>
+    );
 };
 
 export default Map;

@@ -28,11 +28,6 @@ const router = createBrowserRouter([
         element: <LoginPage />,
         errorElement: <ErrorPage />
     },
-    {
-        path: "/petCard",
-        element: <PetCard />,
-        errorElement: <ErrorPage />
-    }
 ])
 
 const container = document.getElementById('root') as HTMLElement;
