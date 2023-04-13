@@ -6,6 +6,7 @@ import { isHttpError } from 'http-errors';
 import { db } from './models/db'
 import { dbRouter } from './routers/dbrouter'
 import usersRouter from './routers/usersRouter'
+import petsRouter from './routers/petsRouter'
 
 
 
@@ -26,12 +27,11 @@ app.get('/', (req: Request, res: Response) => {
   res.send('hello');
 })
 
-// app.use('/test', dbRouter);
-
 // PROTECTED ROUTES
   // router for each table in the db (pets, users, sessions, comments)
   // route format: '/api/v1/<route_name>
   app.use('/api/v1/users', usersRouter);
+  app.use('/api/v1/pets', petsRouter);
 
 // 404 HANDLER
 

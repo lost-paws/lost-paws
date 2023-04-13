@@ -1,8 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Button from './TestButton';
+import PetsMarker from './PetsMarker';
+import petsData from './petsInterface';
 
-const Map: FC = () => {
+interface MapProps {
+  petsArray: petsData[]
+}
+
+const Map: FC<MapProps> = ({ petsArray }) => {
   // Interface for position
   interface Coords {
     lat: number;
@@ -32,6 +37,15 @@ const Map: FC = () => {
     queryGeolocation();
   }, []);
 
+    // iterate through petsArray
+    const petsDataToRender = petsArray.map((petData, i) => {
+      const { lat, lng } = petData
+      return (
+        // <Button lat={lat} lng={lng}>petData.name</Button>
+        <PetsMarker key={i} lat = {lat} lng={lng} petData={petData}/>
+      )
+    })
+
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       {isGeolocationFetched ? (
@@ -40,7 +54,8 @@ const Map: FC = () => {
           defaultCenter={center}
           defaultZoom={zoom}
         >
-          <Button lat = {59.955413} lng={30.337844} text="Marker"/>
+          {petsDataToRender}
+          {/* <Button lat = {59.955413} lng={30.337844} text="Marker"/> */}
         </GoogleMapReact>
       ) : (
         <div>Loading map...</div>
