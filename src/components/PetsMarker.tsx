@@ -8,7 +8,7 @@ interface Coords {
 }
 
 interface MarkerProps extends Coords {
-  petData?: petsData
+  petData: petsData
   center: Coords
 }
 
