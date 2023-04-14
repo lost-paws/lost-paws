@@ -29,14 +29,14 @@ import React, {useState} from 'react';
 // }
 //@ts-ignore
 const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray}) => {
-    let petName:string;
-    let breed: string;
-    let species: unknown;
-    let description: string;
-    let date_last_seen: string;
-    let address: string;
     
-    const [editButtonClicked, setEditButtonClicked] = useState(false)
+    const [editButtonClicked, setEditButtonClicked] = useState(false);
+    const [petName, setPetName] = useState(petData.name);
+    const [breed, setBreed] = useState(petData.breed);
+    const [species, setSpecies] = useState(petData.species);
+    const [description, setDescription] = useState(petData.description);
+    const [date_last_seen, setDate_Last_Seen] = useState(petData.date_last_seen);
+    const [address, setAddress] = useState(petData.address)
 
     const showCardStyle = {
         top: '50%',
@@ -75,12 +75,12 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
         //update the animal
         
         const editedAnimal = {
-            name: petName || petData.name,
-            breed: breed || petData.breed,
-            species: species || petData.species,
-            description: description || petData.description,
-            date_last_seen: date_last_seen || petData.date_last_seen,
-            address: address || petData.address
+            name: petName,
+            breed: breed,
+            species: species,
+            description: description,
+            date_last_seen: date_last_seen,
+            address: address,
         }
 
         const newEditedAnimal = {
@@ -88,7 +88,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
             ...editedAnimal
         }
 
-        console.log(newEditedAnimal)
+        console.log('edited animal to be added', newEditedAnimal)
         //make a call to the backend to update the animal
         stateToChangeAndUpdate = await axios.patch(`/api/v1/pets/${stateToChangeAndUpdate[keyInArr]._id}`, newEditedAnimal)
         console.log(stateToChangeAndUpdate)
@@ -114,15 +114,15 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
             open={setShowPetCard}>
                 <Box sx={showCardStyle}> 
                 <div className = "title">
-                    <h1>{petData.name} </h1>
-                    <h2>{petData.breed} - {petData.species}</h2>
+                    <h1>{petName} </h1>
+                    <h2>{breed} - {species}</h2>
                     {/* //need to add logic for owner and image */}
                 </div>
                 <div className = "form">
                     {/* Breed Field */}
-                    <Typography>{petData.description}</Typography>
-                    <Typography>Last Seen on: {petData.date_last_seen}</Typography>
-                    <Typography>Last Seen at: {petData.address}</Typography>
+                    <Typography>{description}</Typography>
+                    <Typography>Last Seen on: {date_last_seen}</Typography>
+                    <Typography>Last Seen at: {address}</Typography>
                     {/*Location Last Seen Field */}
 
                 </div>
@@ -147,28 +147,28 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
                     // @ts-ignore
                     renderInput={(params) => <TextField {...params}/>}
                     //@ts-ignore
-                    onChange={(newValue) => date_last_seen = newValue} 
+                    onChange={(newValue) => setDate_Last_Seen(newValue.$d)} 
                     />
                 </LocalizationProvider>
 
                 {/* Species Selector Field */}
                 <InputLabel id="species-label">Species</InputLabel>
-                <Select fullWidth onChange={(e) => species = e.target.value}>
+                <Select fullWidth onChange={(e) => setSpecies(e.target.value)}>
                     <MenuItem value={'Dog'}>Dog</MenuItem>
                     <MenuItem value={'Cat'}>Cat</MenuItem>
                 </Select>
 
                 {/* Breed Field */}
-                <TextField fullWidth label='Breed' variant='filled' defaultValue = {petData.breed} onChange={e => breed = e.target.value}></TextField>
+                <TextField fullWidth label='Breed' variant='filled' defaultValue = {breed} onChange={e => setBreed(e.target.value)}></TextField>
 
                 {/*Location Last Seen Field */}
-                <TextField fullWidth label='Address' defaultValue = {petData.address} variant='filled' onChange={e => address = e.target.value}></TextField>
+                <TextField fullWidth label='Address' defaultValue = {address} variant='filled' onChange={e => setAddress(e.target.value)}></TextField>
 
                 {/* petname field */}
-                <TextField fullWidth label="Name" variant='filled' defaultValue = {petData.name} onChange={e => petName = e.target.value}></TextField>
+                <TextField fullWidth label="Name" variant='filled' defaultValue = {petName} onChange={e => setPetName(e.target.value)}></TextField>
 
                 {/* Description Field */}
-                <TextField fullWidth label="Description" variant='filled' defaultValue = {petData.description} onChange={e => description = e.target.value}></TextField>
+                <TextField fullWidth label="Description" variant='filled' defaultValue = {description} onChange={e => setDescription(e.target.value)}></TextField>
 
             </div>
                 <Button variant='contained' onClick={() => editPetCard()}>Save</Button>
