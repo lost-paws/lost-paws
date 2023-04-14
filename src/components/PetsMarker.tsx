@@ -15,7 +15,7 @@ interface MarkerProps extends Coords {
 
 const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
   const [showPetCard, setShowPetCard] = useState(false);
-  console.log('this is the petsdata --->', petData)
+
   return (
     <>
       <PetsIcon
@@ -25,6 +25,9 @@ const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
       }}}
         onClick={() => {
           setShowPetCard(true);
+        }}
+        onMouseOver={() => {
+          console.log(petData.address)
         }}
       >
         {/* {text || 'CLICK THIS'} */}

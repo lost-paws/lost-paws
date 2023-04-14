@@ -28,6 +28,21 @@ import { petsData } from './petsDataInterface';
 const PetCard = ({petData, setShowPetCard}) => {
     console.log('petdata inside pet card component -->', petData)
 
+    const style = {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    position: 'absolute',
+    width: 300,
+    height: 350,
+    border: '2px solid #000',
+    borderRadius: '15px',
+    display: 'flex',
+    flexDirection: 'column',
+    columnGap: '10px',
+    bgcolor: "white"
+}
+
     const editPetCard = () => {
         //first need to check that this is the user
         console.log('edited!')
@@ -38,27 +53,29 @@ const PetCard = ({petData, setShowPetCard}) => {
     }
 
     return (
-        // <Modal
-        // open={true}
-            <Box> 
+        <>
+        <Modal
+        open={setShowPetCard}>
+            <Box sx={style}> 
             <div className = "title">
                 <h1>{petData.name}</h1>
                 <h2>{petData.breed} - {petData.species}</h2>
-                //need to add logic for owner and image
+                {/* //need to add logic for owner and image */}
             </div>
             <div className = "form">
                 {/* Breed Field */}
                 <Typography>{petData.description}</Typography>
                 <Typography>Last Seen on: {petData.date_last_seen}</Typography>
-
+                <Typography>Last Seen at: {petData.address}</Typography>
                 {/*Location Last Seen Field */}
 
             </div>
-            <Button variant="contained" onClick={() => setShowPetCard(false)}>Go Back</Button>
             <Button variant='contained' onClick={() => editPetCard()}>Edit Pet Info</Button>
             <Button variant='contained' onClick={() => deletePetCard()}>Delete Entry </Button>
+            <Button variant="contained" onClick={() => setShowPetCard(false)}>Go Back</Button>
             </Box>
-        // </Modal>
+        </Modal>
+        </>
     );
 }
 
