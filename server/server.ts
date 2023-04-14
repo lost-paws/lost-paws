@@ -1,16 +1,10 @@
-import express, { Express, Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 // const express = require('express');
 // const { Request, Response, NextFunction } = express;
 import morgan from 'morgan';
 import { isHttpError } from 'http-errors';
-import { db } from './models/db'
-import { dbRouter } from './routers/dbrouter'
 import usersRouter from './routers/usersRouter'
 import petsRouter from './routers/petsRouter'
-
-
-
-
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
