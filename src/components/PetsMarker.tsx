@@ -22,7 +22,7 @@ const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData, center }) => {
       color: "white"
     }}}
       onClick={() => {
-        console.log('THIS HAS BEEN CLICKED');
+        console.log(petData.name);
       }}
     >
       {/* {text || 'CLICK THIS'} */}

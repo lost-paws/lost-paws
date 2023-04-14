@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import './MapContainer.css';
 import { borderRadius } from '@mui/system';
-import TestMap from './TestMap';
+import Map from './Map';
 import { petsData } from './petsDataInterface';
 import _ from 'lodash';
 import './CircularView';
@@ -42,8 +42,8 @@ const MapContainer: FC = () => {
 
 
   return (
-     <Container className='circularContainer' maxWidth="lg">
-        <TestMap petsArray={petsInfoArray} />
+     <Container className='container' maxWidth="lg">
+        <Map petsArray={petsInfoArray} />
       </Container>
   )
 }
