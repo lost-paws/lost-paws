@@ -13,7 +13,7 @@ const googleMapsController = {
       const { address } = req.body;
       //console.log(address);
       const parsedAddress = parser.parseLocation(address);
-      //console.log(parsedAddress);
+      // console.log(parsedAddress);
       const { number, street, type, suffix, city, state } = parsedAddress;
       const streetSuffix = suffix ? `${street}+${suffix}` : street;
       const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${number}+${streetSuffix}+${type},+${city},+${state}&key=AIzaSyBro2kUXbOjXXxiQqn7bhx1Udcf5Nowx4c`
