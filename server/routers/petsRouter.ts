@@ -14,15 +14,15 @@ router.get('/:id', petsController.fetchPet, (req: Request, res: Response) => {
 });
 // create a new pet
 router.post('/', googleMapsController.addressToLatLng, petsController.createPet, petsController.fetchPets, (req: Request, res: Response) => {
-  res.status(201).json(res.locals.newPet);
+  res.status(201).json(res.locals.fetchedPets);
 });
 // update an existing pet
 router.patch('/:id', googleMapsController.addressToLatLng, petsController.updatePet, petsController.fetchPets, (req: Request, res: Response) => {
-  res.status(200).json(res.locals.updatedPet);
+  res.status(200).json(res.locals.fetchedPets);
 })
 // delete a pet
 router.delete('/:id', petsController.deletePet, petsController.fetchPets, (req: Request, res: Response) => {
-  res.status(200).json(res.locals.deletedPet);
+  res.status(200).json(res.locals.fetchedPets);
 });
 
 export default router;
