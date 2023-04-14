@@ -13,6 +13,7 @@ interface MarkerProps extends Coords {
   petsArray: petsData[];
   keyInArr: number;
   setPetsInfoArray: React.Dispatch<React.SetStateAction<petsData[]>>
+  center: Coords
 }
 
 
@@ -36,4 +37,4 @@ const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData, keyInArr, petsArray, s
   );
 };
 
-export default PetsMarker;
+export default React.memo(PetsMarker);
