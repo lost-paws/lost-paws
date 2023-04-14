@@ -18,7 +18,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import { ReportProblem } from '@mui/icons-material';
 import { report } from 'process';
-
+import './RegistrationForm.css'
 
 // import { useNavigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
@@ -90,7 +90,7 @@ const [address, setAddress] = useState('');
 
   return (
     <>
-  <HomeIcon className='home-btn'/>
+  <HomeIcon onClick={() => navigate('/')} className='home-btn'/>
     <h1 className='register'>Register</h1>
     <Box sx={{ 
       containerDirection: 'column', 

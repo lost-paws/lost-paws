@@ -11,7 +11,7 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import { withCookies } from 'react-cookie';
 
 
-const App: FC = (props) => {
+const App: FC = () => {
 
 
   return (

@@ -16,12 +16,12 @@ router.post('/', petsController.createPet, (req: Request, res: Response) => {
   res.status(201).json(res.locals.newPet);
 });
 // update an existing pet
-router.patch('/:id', petsController.updatePet, (req: Request, res: Response) => {
-  res.status(200).json(res.locals.updatedPet);
+router.patch('/:id', petsController.updatePet, petsController.fetchPets, (req: Request, res: Response) => {
+  res.status(200).json(res.locals.fetchedPets);
 })
 // delete a pet
-router.delete('/:id', petsController.deletePet, (req: Request, res: Response) => {
-  res.status(200).json(res.locals.deletedPet);
+router.delete('/:id', petsController.deletePet, petsController.fetchPets, (req: Request, res: Response) => {
+  res.status(200).json(res.locals.fetchedPets);
 });
 
 export default router;

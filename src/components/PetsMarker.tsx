@@ -9,11 +9,14 @@ interface Coords {
 }
 
 interface MarkerProps extends Coords {
-  petData: petsData
+  petData: petsData;
+  petsArray: petsData[];
+  keyInArr: number;
+  setPetsInfoArray: React.Dispatch<React.SetStateAction<petsData[]>>
 }
 
 
-const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
+const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData, keyInArr, petsArray, setPetsInfoArray}) => {
   const [showPetCard, setShowPetCard] = useState(false);
 
   return (
@@ -26,13 +29,9 @@ const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
         onClick={() => {
           setShowPetCard(true);
         }}
-        onMouseOver={() => {
-          console.log(petData.address)
-        }}
       >
-        {/* {text || 'CLICK THIS'} */}
       </PetsIcon>
-      {showPetCard && <PetCard setShowPetCard={setShowPetCard} petData={petData}/>}
+      {showPetCard && <PetCard setShowPetCard={setShowPetCard} petData={petData} keyInArr={keyInArr} petsArray={petsArray} setPetsInfoArray={setPetsInfoArray}/>}
     </>
   );
 };

@@ -5,9 +5,10 @@ import { petsData } from './petsDataInterface';
 
 interface MapProps {
   petsArray: petsData[]
+  setPetsInfoArray: React.Dispatch<React.SetStateAction<petsData[]>>
 }
 
-const Map: FC<MapProps> = ({ petsArray }) => {
+const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
   // Interface for position
   interface Coords {
     lat: number;
@@ -41,7 +42,7 @@ const Map: FC<MapProps> = ({ petsArray }) => {
     const petsDataToRender = petsArray.map((petData, i) => {
       const { lat, lng } = petData
       return (
-        <PetsMarker key={i} lat = {lat} lng={lng} petData={petData}/>
+        <PetsMarker key={i} lat = {lat} lng={lng} petData={petData} petsArray={petsArray} keyInArr={i} setPetsInfoArray={setPetsInfoArray}/>
       )
     })
 

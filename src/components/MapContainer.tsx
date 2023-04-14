@@ -30,7 +30,7 @@ const MapContainer: FC = () => {
 
   return (
      <Container className='container' maxWidth="lg">
-        <Map petsArray={petsInfoArray} />
+        <Map petsArray={petsInfoArray} setPetsInfoArray={setPetsInfoArray}/>
       </Container>
   )
 }
