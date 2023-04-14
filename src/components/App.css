@@ -1,0 +1,7 @@
+.lost_paws {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  padding-top: 10px;
+}

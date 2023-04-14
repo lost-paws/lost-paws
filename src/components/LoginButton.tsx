@@ -10,10 +10,16 @@ const LoginButton: FC = () => {
   const navigate = useNavigate()
 
   return (
-    <Button variant="contained" sx={{ bgcolor: 'dda15e',  ":hover": {
+    <Button variant="contained" sx={{ 
+      bgcolor: 'dda15e',  
+      position: "fixed", 
+      top: 10, 
+      right: 115.5, 
+      zIndex: 2000,
+      ":hover": {
       bgcolor: "#A1CDF1",
       color: "white"
-    }}} onClick={() => navigate('/login')}>Login to your account</Button>
+    }}} onClick={() => navigate('/login')}>Login</Button>
   );
 };
 
