@@ -9,9 +9,12 @@ interface Coords {
 
 interface MarkerProps extends Coords {
   petData?: petsData
+  center: Coords
 }
 
-const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
+const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData, center }) => {
+  console.log('This is the center:', center);
+  console.log('These are coordinates of the petMarker', {lat, lng})
   return (
     <PetsIcon
     sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
@@ -27,4 +30,4 @@ const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData }) => {
   );
 };
 
-export default PetsMarker;
+export default React.memo(PetsMarker);

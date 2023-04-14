@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { Loader, LoaderOptions } from 'google-maps';
 import { SourceMapDevToolPlugin } from 'webpack';
+import { GeolibAltitudeInputValue, GeolibInputCoordinates } from 'geolib/es/types';
+import * as geolib from 'geolib';
 
 const Map: FC = () => {
   //instantiate ref to attach map to
@@ -12,21 +14,25 @@ const Map: FC = () => {
   const loader = new Loader('AIzaSyBro2kUXbOjXXxiQqn7bhx1Udcf5Nowx4c', options);
 
   //interface for position
-  interface LatLong {
-    lat? : number;
-    long?: number;
+
+  interface LatLng {
+    latitude: number
+    longitude: number
   }
 
   useEffect(() => {
 
     //intialize map
     const initMap = async () => {
-      const userCoords = {lat: 0, long: 0}
+      const userCoords: LatLng = {
+        latitude: 0,
+        longitude: 0
+      }
       //query user location
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-          userCoords.lat = position.coords.latitude;
-          userCoords.long = position.coords.longitude;
+          userCoords.latitude = position.coords.latitude;
+          userCoords.longitude = position.coords.longitude;
           console.log('These are the userCoords:', userCoords);
         });
       }
@@ -39,7 +45,7 @@ const Map: FC = () => {
         console.log('mapRef.current is not null:', mapRef.current);
         console.log('Creating new map instance...');
         const map = new google.maps.Map(mapRef.current, {
-          center: { lat: userCoords.lat, lng: userCoords.long },
+          center: { lat: userCoords.latitude, lng: userCoords.longitude },
           zoom: 8,
         })
         console.log('Map instance created:', map)

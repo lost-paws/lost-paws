@@ -38,6 +38,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fast-equals": "^5.0.1",
+    "geolib": "^3.3.3",
     "google-map-react": "^2.2.0",
     "google-maps": "^4.3.3",
     "http-errors": "^2.0.0",
