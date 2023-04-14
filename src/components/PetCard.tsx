@@ -38,20 +38,35 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
     
     const [editButtonClicked, setEditButtonClicked] = useState(false)
 
-    const style = {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    position: 'absolute',
-    width: 300,
-    height: 350,
-    border: '2px solid #000',
-    borderRadius: '15px',
-    display: 'flex',
-    flexDirection: 'column',
-    columnGap: '10px',
-    bgcolor: "white"
-}
+    const showCardStyle = {
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        position: 'absolute',
+        width: 300,
+        height: 350,
+        border: '2px solid #000',
+        borderRadius: '15px',
+        display: 'flex',
+        flexDirection: 'column',
+        columnGap: '10px',
+        bgcolor: "white"
+    }
+
+    const editCardStyle = {
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        position: 'absolute',
+        width: 550,
+        height: 450,
+        border: '2px solid #000',
+        borderRadius: '15px',
+        display: 'flex',
+        flexDirection: 'column',
+        columnGap: '10px',
+        bgcolor: "white"
+    }
 
     const editPetCard = async () => {
         //clone the state
@@ -73,6 +88,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
             ...editedAnimal
         }
 
+        console.log(newEditedAnimal)
         //make a call to the backend to update the animal
         stateToChangeAndUpdate = await axios.patch(`/api/v1/pets/${stateToChangeAndUpdate[keyInArr]._id}`, newEditedAnimal)
         console.log(stateToChangeAndUpdate)
@@ -96,7 +112,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
             <>
             <Modal
             open={setShowPetCard}>
-                <Box sx={style}> 
+                <Box sx={showCardStyle}> 
                 <div className = "title">
                     <h1>{petData.name} </h1>
                     <h2>{petData.breed} - {petData.species}</h2>
@@ -122,7 +138,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
             <>
             <Modal
             open={setShowPetCard}>
-                <Box sx={style}> 
+                <Box sx={editCardStyle}> 
                 <div className = "form">
                 {/* Date Last Seen Field */}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -146,7 +162,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
                 <TextField fullWidth label='Breed' variant='filled' defaultValue = {petData.breed} onChange={e => breed = e.target.value}></TextField>
 
                 {/*Location Last Seen Field */}
-                <TextField fullWidth label='Address' defaultValue = {petData.description} variant='filled' onChange={e => address = e.target.value}></TextField>
+                <TextField fullWidth label='Address' defaultValue = {petData.address} variant='filled' onChange={e => address = e.target.value}></TextField>
 
                 {/* petname field */}
                 <TextField fullWidth label="Name" variant='filled' defaultValue = {petData.name} onChange={e => petName = e.target.value}></TextField>
