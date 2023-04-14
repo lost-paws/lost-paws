@@ -16,8 +16,8 @@ const Map: FC<MapProps> = ({ petsArray }) => {
     lng: number;
   }
 
-  const [center, setCenter] = useState<Coords>({ lat: 0, lng: 0 });
-  const [zoom, setZoom] = useState(0);
+  const [center, setCenter] = useState<Coords>({ lat: 48.769768, lng: -122.485886 });
+  const [zoom, setZoom] = useState(10);
   const [isGeolocationFetched, setIsGeolocationFetched] = useState(false);
   const [maps, setMaps] = useState(null);
 

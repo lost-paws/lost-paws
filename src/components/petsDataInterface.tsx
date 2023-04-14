@@ -4,6 +4,7 @@ export interface petsData {
   lng: number,
   _id: number,
   owner_id: number,
+  address: string,
   date_last_seen: string,
   species: string,
   breed: string,
