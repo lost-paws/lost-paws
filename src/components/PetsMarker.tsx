@@ -11,13 +11,13 @@ interface Coords {
 interface MarkerProps extends Coords {
   petData: petsData;
   petsArray: petsData[];
-  keyInArr: number;
+  // keyInArr: number;
   setPetsInfoArray: React.Dispatch<React.SetStateAction<petsData[]>>
   center: Coords
 }
 
 
-const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData, keyInArr, petsArray, setPetsInfoArray}) => {
+const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData, petsArray, setPetsInfoArray}) => {
   const [showPetCard, setShowPetCard] = useState(false);
 
   return (
@@ -32,7 +32,7 @@ const PetsMarker: FC<MarkerProps> = ({ lat, lng, petData, keyInArr, petsArray, s
         }}
       >
       </PetsIcon>
-      {showPetCard && <PetCard setShowPetCard={setShowPetCard} petData={petData} keyInArr={keyInArr} petsArray={petsArray} setPetsInfoArray={setPetsInfoArray}/>}
+      {showPetCard && <PetCard setShowPetCard={setShowPetCard} petData={petData} petsArray={petsArray} setPetsInfoArray={setPetsInfoArray}/>}
     </>
   );
 };

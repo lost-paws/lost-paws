@@ -28,7 +28,7 @@ import React, {useState} from 'react';
 //     petData?: petDataType
 // }
 //@ts-ignore
-const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray}) => {
+const PetCard = ({petData, setShowPetCard, petsArray, setPetsInfoArray}) => {
     
     const [editButtonClicked, setEditButtonClicked] = useState(false);
     const [petName, setPetName] = useState(petData.name);
@@ -84,23 +84,23 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
         }
 
         const newEditedAnimal = {
-            ...stateToChangeAndUpdate[keyInArr],
+            ...petData,
             ...editedAnimal
         }
-
+        
         console.log('edited animal to be added', newEditedAnimal)
         //make a call to the backend to update the animal
-        stateToChangeAndUpdate = await axios.patch(`/api/v1/pets/${stateToChangeAndUpdate[keyInArr]._id}`, newEditedAnimal)
+        stateToChangeAndUpdate = await axios.patch(`/api/v1/pets/${petData._id}`, newEditedAnimal)
         console.log(stateToChangeAndUpdate.data, 'this is the state to change and update')
         setPetsInfoArray(stateToChangeAndUpdate.data);
-        return setEditButtonClicked(false);
+        setEditButtonClicked(false);
     }
 
     const deletePetCard = async () => {
         let text = "Are you sure you want to delete this pet from the entire database?";
         if(confirm(text) === true){
             let stateToChangeAndUpdate = petsArray;
-            const deletedPet = stateToChangeAndUpdate[keyInArr]
+            const deletedPet = petData;
             stateToChangeAndUpdate = await axios.delete(`/api/v1/pets/${deletedPet._id}`)
             setPetsInfoArray(stateToChangeAndUpdate.data)
           text = "Pet Deleted!"  

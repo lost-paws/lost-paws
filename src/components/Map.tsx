@@ -61,7 +61,7 @@ const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
         }
         const distanceMiles = geolib.getDistance(petCoords, userCurrentLoc) * 0.00062137;
         console.log('Distance:', distanceMiles);
-        if (distanceMiles < 15) return pet;
+        if (distanceMiles < 2000) return pet;
       })
   
       //if maps object is available, map over pet array, otherwise we return an empty react fragment
@@ -69,7 +69,7 @@ const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
         const { lat, lng } = petData
         return (
           // <Button lat={lat} lng={lng}>petData.name</Button>
-          <PetsMarker key={i} lat = {lat} lng={lng} center={center} petData={petData}/>
+          <PetsMarker key={i} lat = {lat} lng={lng} center={center} petData={petData} petsArray={petsFilteredByDistance} setPetsInfoArray={setPetsInfoArray}/>
         )
       }) : <React.Fragment/>
     } else {
