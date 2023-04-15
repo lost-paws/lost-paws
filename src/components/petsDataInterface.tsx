@@ -10,5 +10,5 @@ export interface petsData {
   breed: string,
   description: string,
   name: string,
-  img_src: string
+  image: string
 }

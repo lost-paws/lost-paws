@@ -11,6 +11,7 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import PetsFinder from '../apis/PetsFinder';
 import Button from '@mui/material/Button';
+import dayjs, { Dayjs } from "dayjs"
 
 const style = {
     top: '50%',
@@ -32,32 +33,32 @@ const style = {
 const AddPetModal = (props) => {
 
     
-    const [petName, setPetName] = useState('');
-    const [lastLocation, setLastLocation] = useState('')
-    const [species, setSpecies] = useState('')
-    const [description, setDescription] = useState('')
-    const [breed, setBreed] =  useState('')
-    const [lastSeen, setLastSeen] =  useState(null)
+    const [petName, setPetName] = useState<string>('');
+    const [lastLocation, setLastLocation] = useState<string>('')
+    const [species, setSpecies] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [breed, setBreed] =  useState<string>('')
+    const [lastSeen, setLastSeen] = useState<any>(null)
+    const [file, setFile] = useState<Blob | null>(null);
 
 // @ts-ignore
     const addAnimaltoDataBase = async () => {
-        const reqBody = {
-            //username: username
-            // @ts-ignore
-            date_last_seen: lastSeen.$d,
-            loc_last_seen: lastLocation,
-            species: species,
-            breed: breed,
-            description: description,
-            name: petName
+        console.log('we are in addAnimalToDatabase');
+        if (!file || !lastSeen) {
+            alert('Select an image of your pet to submit')
+            return;
         }
+        const formData = new FormData();
+        formData.append('file', file)
+        formData.append('name', petName);
+        formData.append('species', species);
+        formData.append('breed', breed);
+        formData.append('date_last_seen', lastSeen.$d);
+        formData.append('address', lastLocation);
+        formData.append('description', description);
 
         try {
-            const response = await PetsFinder.post('/', {
-                method: 'post',
-                url: '/',
-                data: reqBody
-            })
+            const response = await PetsFinder.post('/', formData)
         } catch (error) {
             console.log(error)
         }
@@ -65,6 +66,12 @@ const AddPetModal = (props) => {
         
     }
 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if(event.target.files && event.target.files.length > 0) {
+            setFile(event.target.files[0])
+        }
+    }
+    
     return (
         // @ts-ignore
         <Modal
@@ -82,7 +89,11 @@ const AddPetModal = (props) => {
                     // @ts-ignore
                     renderInput={(params) => <TextField {...params}/>} 
                     value={lastSeen} 
-                    onChange={(newValue) => setLastSeen(newValue)} 
+                    onChange={
+                        (newValue) => {
+                        setLastSeen(newValue)
+                    }
+                    } 
                     />
                 </LocalizationProvider>
 
@@ -104,6 +115,9 @@ const AddPetModal = (props) => {
 
                 {/* Description Field */}
                 <TextField fullWidth label='Description' variant='filled' onChange={e => setDescription(e.target.value)}></TextField>
+                <form>
+                    <input type='file' onChange={handleFileChange}/>
+                </form>
 
 
             </div>

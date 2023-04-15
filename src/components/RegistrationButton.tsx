@@ -15,7 +15,7 @@ const handleRegister = (e: object) => {
 
 return (
   <>
-  <Button type='submit' variant="outlined" sx={{ 
+  <Button type='submit' variant="contained" sx={{ 
     bgcolor: 'dda15e',
     color: 'white', 
     textTransform: 'capitalize', 

@@ -46,30 +46,34 @@ const Map: FC<MapProps> = ({ petsArray }) => {
   };
 
     // iterate through petsArray
-
+    let petsDataToRender;
     //filter petArray, calculate distance in miles then exclude all pets whose distance is too great
-    const petsFilteredByDistance = petsArray.filter((pet) => {
-      const petCoords: GeolibInputCoordinates = {
-        lat: pet.lat,
-        lng: pet.lng
-      }
-      const userCurrentLoc: GeolibInputCoordinates = {
-        lat: center.lat,
-        lng: center.lng
-      }
-      const distanceMiles = geolib.getDistance(petCoords, userCurrentLoc) * 0.00062137;
-      console.log('Distance:', distanceMiles);
-      if (distanceMiles < 15) return pet;
-    })
-
-    //if maps object is available, map over pet array, otherwise we return an empty react fragment
-    const petsDataToRender = maps ? petsFilteredByDistance.map((petData, i) => {
-      const { lat, lng } = petData
-      return (
-        // <Button lat={lat} lng={lng}>petData.name</Button>
-        <PetsMarker key={i} lat = {lat} lng={lng} center={center} petData={petData}/>
-      )
-    }) : <React.Fragment/>
+    if (petsArray.length > 0) {
+      const petsFilteredByDistance = petsArray.filter((pet) => {
+        const petCoords: GeolibInputCoordinates = {
+          lat: pet.lat,
+          lng: pet.lng
+        }
+        const userCurrentLoc: GeolibInputCoordinates = {
+          lat: center.lat,
+          lng: center.lng
+        }
+        const distanceMiles = geolib.getDistance(petCoords, userCurrentLoc) * 0.00062137;
+        console.log('Distance:', distanceMiles);
+        if (distanceMiles < 15) return pet;
+      })
+  
+      //if maps object is available, map over pet array, otherwise we return an empty react fragment
+      petsDataToRender = maps ? petsFilteredByDistance.map((petData, i) => {
+        const { lat, lng } = petData
+        return (
+          // <Button lat={lat} lng={lng}>petData.name</Button>
+          <PetsMarker key={i} lat = {lat} lng={lng} center={center} petData={petData}/>
+        )
+      }) : <React.Fragment/>
+    } else {
+      petsDataToRender = [];
+    }
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
