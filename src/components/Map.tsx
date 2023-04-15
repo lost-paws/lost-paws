@@ -71,7 +71,7 @@ const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
         <PetsMarker key={i} lat = {lat} lng={lng} center={center} petData={petData} petsArray={petsArray} keyInArr={i} setPetsInfoArray={setPetsInfoArray}/>
       )
     }) : <React.Fragment/>
-
+    console.log('pets Data to render', petsDataToRender)
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       {isGeolocationFetched ? (

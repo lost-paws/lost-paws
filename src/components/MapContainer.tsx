@@ -19,6 +19,7 @@ const MapContainer: FC = () => {
       const data = await fetch('/api/v1/pets');
       const parsedData = await data.json();
       petsState = parsedData
+      console.log(petsState)
       // setPetsInfoArray(petsState);
       if (!_.isEqual(petsState, petsInfoArray)) {
         setPetsInfoArray(petsState);

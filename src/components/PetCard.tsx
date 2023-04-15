@@ -91,7 +91,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
         console.log('edited animal to be added', newEditedAnimal)
         //make a call to the backend to update the animal
         stateToChangeAndUpdate = await axios.patch(`/api/v1/pets/${stateToChangeAndUpdate[keyInArr]._id}`, newEditedAnimal)
-        console.log(stateToChangeAndUpdate)
+        console.log(stateToChangeAndUpdate.data, 'this is the state to change and update')
         setPetsInfoArray(stateToChangeAndUpdate.data);
         return setEditButtonClicked(false);
     }
@@ -105,6 +105,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
             setPetsInfoArray(stateToChangeAndUpdate.data)
           text = "Pet Deleted!"  
         } else text = "Cancelled"
+        setEditButtonClicked(false);
     }
 
     if (!editButtonClicked){
@@ -121,7 +122,7 @@ const PetCard = ({petData, setShowPetCard, keyInArr, petsArray, setPetsInfoArray
                 <div className = "form">
                     {/* Breed Field */}
                     <Typography>{description}</Typography>
-                    <Typography>Last Seen on: {date_last_seen}</Typography>
+                    <Typography>Last Seen on: {date_last_seen.toString()}</Typography>
                     <Typography>Last Seen at: {address}</Typography>
                     {/*Location Last Seen Field */}
 
