@@ -20,6 +20,11 @@ const petsController: petsControllerInterface = {
 
     try {
       const allPets = await db.query(query);
+      // iterate through allPets.rows and convert each image value into base 64
+      allPets.rows.forEach((pet) => {
+        pet.image = pet.image.toString('base64');
+      })
+      console.log(allPets.rows)
       res.locals.fetchedPets = allPets.rows;
       // console.log('These are the rows:', res.locals.fetchedPets)
       if (!allPets.rowCount) throw createHttpError(400, 'Pet not found');

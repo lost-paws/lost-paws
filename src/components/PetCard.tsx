@@ -37,6 +37,7 @@ const PetCard = ({petData, setShowPetCard, petsArray, setPetsInfoArray}) => {
     const [description, setDescription] = useState(petData.description);
     const [date_last_seen, setDate_Last_Seen] = useState(petData.date_last_seen);
     const [address, setAddress] = useState(petData.address)
+    const [image, setImage] = useState<Blob>(petData.image);
 
     const showCardStyle = {
         top: '50%',
@@ -115,6 +116,9 @@ const PetCard = ({petData, setShowPetCard, petsArray, setPetsInfoArray}) => {
             open={setShowPetCard}>
                 <Box sx={showCardStyle}> 
                 <div className = "title">
+                    {image ? 
+                    <img src={`data:image/jpeg;base64,${image}`}/>
+                    : <p>Loading image...</p>}
                     <h1>{petName} </h1>
                     <h2>{breed} - {species}</h2>
                     {/* //need to add logic for owner and image */}
