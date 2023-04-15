@@ -46,6 +46,13 @@ const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
     setMaps(maps);
   };
 
+  const handleChange = ({center, zoom}: {center:any; zoom:any}) => {
+    setCenter(center);
+    setZoom(zoom);
+    console.log(center);
+    console.log(zoom);
+  };
+
     // iterate through petsArray
     let petsDataToRender;
     //filter petArray, calculate distance in miles then exclude all pets whose distance is too great
@@ -61,7 +68,7 @@ const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
         }
         const distanceMiles = geolib.getDistance(petCoords, userCurrentLoc) * 0.00062137;
         console.log('Distance:', distanceMiles);
-        if (distanceMiles < 2000) return pet;
+        if (distanceMiles < 100) return pet;
       })
   
       //if maps object is available, map over pet array, otherwise we return an empty react fragment
@@ -76,6 +83,25 @@ const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
       petsDataToRender = [];
     }
 
+  // return (
+  //   <div style={{ height: '100vh', width: '100%' }}>
+  //     {isGeolocationFetched ? (
+  //       <GoogleMapReact
+  //         bootstrapURLKeys={{ key: 'AIzaSyBro2kUXbOjXXxiQqn7bhx1Udcf5Nowx4c' }}
+  //         defaultCenter={center}
+  //         defaultZoom={zoom}
+  //         onGoogleApiLoaded={handleLoad}
+  //         yesIWantToUseGoogleMapApiInternals
+  //       >
+  //         {petsDataToRender}
+  //         {/* <Button lat = {59.955413} lng={30.337844} text="Marker"/> */}
+  //       </GoogleMapReact>
+  //     ) : (
+  //       <div>Loading map...</div>
+  //     )}
+  //   </div>
+  // );
+
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       {isGeolocationFetched ? (
@@ -84,6 +110,7 @@ const Map: FC<MapProps> = ({ petsArray, setPetsInfoArray }) => {
           defaultCenter={center}
           defaultZoom={zoom}
           onGoogleApiLoaded={handleLoad}
+          onChange={handleChange}
           yesIWantToUseGoogleMapApiInternals
         >
           {petsDataToRender}

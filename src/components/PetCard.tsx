@@ -37,20 +37,20 @@ const PetCard = ({petData, setShowPetCard, petsArray, setPetsInfoArray}) => {
     const [description, setDescription] = useState(petData.description);
     const [date_last_seen, setDate_Last_Seen] = useState(petData.date_last_seen);
     const [address, setAddress] = useState(petData.address)
+    const [image, setImage] = useState<Blob>(petData.image);
 
     const showCardStyle = {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         position: 'absolute',
-        width: 300,
-        height: 350,
+        width: '25%',
+        height: '50%',
         border: '2px solid #000',
         borderRadius: '15px',
         display: 'flex',
         flexDirection: 'column',
-        columnGap: '10px',
-        bgcolor: "white"
+        bgcolor: "white",
     }
 
     const editCardStyle = {
@@ -65,7 +65,9 @@ const PetCard = ({petData, setShowPetCard, petsArray, setPetsInfoArray}) => {
         display: 'flex',
         flexDirection: 'column',
         columnGap: '10px',
-        bgcolor: "white"
+        bgcolor: "white",
+        maxWith: 'sm',
+
     }
 
     const editPetCard = async () => {
@@ -115,21 +117,32 @@ const PetCard = ({petData, setShowPetCard, petsArray, setPetsInfoArray}) => {
             open={setShowPetCard}>
                 <Box sx={showCardStyle}> 
                 <div className = "title">
-                    <h1>{petName} </h1>
-                    <h2>{breed} - {species}</h2>
+                    {image ? 
+                    <img 
+                        src={`data:image/jpeg;base64,${image}`}
+                        width={'100%'}
+                        height={'25%'}  
+                    />
+                    : <p>Loading image...</p>}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '10px' }}>
+                    <Typography variant="h5">{petName} </Typography>
+                    <Typography variant="h6">{breed} - {species}</Typography>
+                    </div>
                     {/* //need to add logic for owner and image */}
-                </div>
-                <div className = "form">
-                    {/* Breed Field */}
-                    <Typography>{description}</Typography>
-                    <Typography>Last Seen on: {date_last_seen.toString()}</Typography>
-                    <Typography>Last Seen at: {address}</Typography>
-                    {/*Location Last Seen Field */}
+                    <div className = "form" style={{ textAlign: 'center' }}>
+                        {/* Breed Field */}
+                        <Typography>{description}</Typography>
+                        <Typography><strong>Last Seen on: </strong>{date_last_seen.toString()}</Typography>
+                        <Typography><strong>Last Seen at: </strong>{address}</Typography>
+                        {/*Location Last Seen Field */}
 
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Button variant='contained' onClick={() => setEditButtonClicked(true)}>Edit Pet Info</Button>
+                        <Button variant='contained' onClick={() => deletePetCard()}>Delete Entry </Button>
+                        <Button variant="contained" onClick={() => setShowPetCard(false)}>Go Back</Button>
+                    </div>
                 </div>
-                <Button variant='contained' onClick={() => setEditButtonClicked(true)}>Edit Pet Info</Button>
-                <Button variant='contained' onClick={() => deletePetCard()}>Delete Entry </Button>
-                <Button variant="contained" onClick={() => setShowPetCard(false)}>Go Back</Button>
                 </Box>
             </Modal>
             </>
