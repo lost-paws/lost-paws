@@ -1,8 +1,6 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC } from 'react';
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
 import './MapContainer.css';
-import { borderRadius } from '@mui/system';
 import Map from './Map';
 import { petsData } from './petsDataInterface';
 import _ from 'lodash';

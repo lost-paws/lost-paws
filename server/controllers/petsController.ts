@@ -49,21 +49,12 @@ const petsController: petsControllerInterface = {
       owner_id,
       name,
       date_last_seen,
-      lat,
-      lng,
       address,
       species,
       breed,
       description
     } = req.body;
-
-    // will need to convert address into lat and lng using google maps api geocoder:
-    // https://www.youtube.com/watch?v=2IIhGA1cfmc
-    // once we have achieved this functionality, we will want to delete the lat and lng
-    // properties from req.body, as the user will only send the address
-    // and we will convert it to lat/lng (I'm thinking here, since we'll need lat/lng)
-    // to send to the database in the below query:
-
+    const { lat, lng } = res.locals.coords;
 
     const command = `
     INSERT INTO pets (owner_id, name, date_last_seen, address, lat, lng, species, breed, description)
@@ -96,13 +87,12 @@ const petsController: petsControllerInterface = {
       owner_id,
       name,
       date_last_seen,
-      lat,
-      lng,
       address,
       species,
       breed,
       description
     } = req.body;
+    const { lat, lng } = res.locals.coords;
     const { id } = req.params;
     const command = `
     UPDATE "public"."pets"
