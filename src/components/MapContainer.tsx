@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 
 const MapContainer: FC = () => {
+  console.log('rendered!')
 
   const [petsInfoArray, setPetsInfoArray] = React.useState<petsData[]>([]);
 
@@ -17,7 +18,9 @@ const MapContainer: FC = () => {
       let petsState: petsData[] = [];
       const data = await fetch('/api/v1/pets');
       const parsedData = await data.json();
-      petsState = parsedData;
+      petsState = parsedData
+      console.log(petsState)
+      // setPetsInfoArray(petsState);
       if (!_.isEqual(petsState, petsInfoArray)) {
         setPetsInfoArray(petsState);
       }
@@ -27,8 +30,8 @@ const MapContainer: FC = () => {
 
 
   return (
-     <Container className='container' maxWidth="md">
-        <Map petsArray={petsInfoArray} />
+     <Container className='container' maxWidth="lg">
+        <Map petsArray={petsInfoArray} setPetsInfoArray={setPetsInfoArray}/>
       </Container>
   )
 }

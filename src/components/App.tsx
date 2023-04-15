@@ -14,7 +14,7 @@ import './App.css';
 
 
 
-const App: FC = (props) => {
+const App: FC = () => {
 
 
   return (

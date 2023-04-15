@@ -6,6 +6,7 @@ import ErrorPage from "./error-page";
 import { createBrowserRouter, RouterProvider} from "react-router-dom"
 import RegistrationPage from './components/RegistrationForm';
 import LoginPage from './components/LoginPage';
+import PetCard from './components/PetCard';
 
 
 
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage />,
         errorElement: <ErrorPage />
-    }
+    },
 ])
 
 const container = document.getElementById('root') as HTMLElement;

@@ -107,11 +107,10 @@ const petsController: petsControllerInterface = {
     WHERE _id = $9`
     const values = [name, date_last_seen, lat, lng, address, species, breed, description, id];
     try {
-      const updatedPet = await db.query(command, values);
-      res.locals.updatedPet = updatedPet;
+      await db.query(command, values);
       return next();
     } catch (err) {
-      return next(createHttpError(400, 'Could not update pet in petsController.updatePet'));
+      return next(createHttpError(400, 'Could not update pet in petsController.updatePet',));
     }
   }
 
