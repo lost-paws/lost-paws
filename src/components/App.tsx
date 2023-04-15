@@ -9,6 +9,8 @@ import Map from './OldTestMap';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import { withCookies } from 'react-cookie';
+import './App.css';
+
 
 
 
@@ -17,7 +19,7 @@ const App: FC = (props) => {
 
   return (
     <>
-      <h1>all dogs go to  heaven</h1>
+      <h1 className='lost_paws'>Lost Paws</h1>
       <LocalizationProvider>
         <MapContainer />
         <AddPet />
