@@ -24,7 +24,7 @@ const petsController: petsControllerInterface = {
       allPets.rows.forEach((pet) => {
         pet.image = pet.image.toString('base64');
       })
-      console.log(allPets.rows)
+      // console.log(allPets.rows)
       res.locals.fetchedPets = allPets.rows;
       // console.log('These are the rows:', res.locals.fetchedPets)
       if (!allPets.rowCount) throw createHttpError(400, 'Pet not found');
@@ -64,7 +64,7 @@ const petsController: petsControllerInterface = {
       description
     } = req.body;
     const { lat, lng } = res.locals.coords;
-    const fakeOwnerId = 2;
+    const fakeOwnerId = 1;
     const dateString = date_last_seen.split(' ').slice(1, 4).join(' ');
     const imageBuffer = req.file?.buffer;
     const command = `
