@@ -27,7 +27,7 @@ const MapContainer: FC = () => {
 
 
   return (
-     <Container className='container' maxWidth="xl">
+     <Container className='container' maxWidth="md">
         <Map petsArray={petsInfoArray} />
       </Container>
   )
