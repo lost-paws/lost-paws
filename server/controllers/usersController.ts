@@ -10,6 +10,7 @@ interface usersControllerInterface {
   deleteUser: (req: Request, res: Response, next: NextFunction) => Promise<void>,
 }
 
+
 const usersController: usersControllerInterface = {
   fetchUsers: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

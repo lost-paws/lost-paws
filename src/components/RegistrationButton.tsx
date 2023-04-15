@@ -15,7 +15,16 @@ const handleRegister = (e: object) => {
 
 return (
   <>
-  <Button type='submit' variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
+  <Button type='submit' variant="contained" sx={{ 
+    bgcolor: 'dda15e',
+    color: 'white', 
+    textTransform: 'capitalize', 
+    position: "fixed", 
+    top: 10, 
+    right: 26.4, 
+    
+    zIndex: 2000,
+     ":hover": {
       bgcolor: "#A1CDF1",
       color: "white"
     }}} onClick={ handleRegister}>Register</Button>

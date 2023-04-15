@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { db } from '../models/db';
 import createHttpError from 'http-errors'
+import dayjs = require('dayjs');
 
 interface petsControllerInterface {
   fetchPets: (req: Request, res: Response, next: NextFunction) => Promise<void>,
@@ -45,6 +46,9 @@ const petsController: petsControllerInterface = {
 
   createPet: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
+    console.log('This is req.file', req.file);
+    console.log('This is req.body', req.body);
+
     const {
       owner_id,
       name,
@@ -55,11 +59,13 @@ const petsController: petsControllerInterface = {
       description
     } = req.body;
     const { lat, lng } = res.locals.coords;
-
+    const fakeOwnerId = 2;
+    const dateString = date_last_seen.split(' ').slice(1, 4).join(' ');
+    const imageBuffer = req.file?.buffer;
     const command = `
-    INSERT INTO pets (owner_id, name, date_last_seen, address, lat, lng, species, breed, description)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
-    const values = [owner_id, name, date_last_seen, address, lat, lng, species, breed, description];
+    INSERT INTO pets (owner_id, name, date_last_seen, address, lat, lng, species, breed, description, image)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
+    const values = [fakeOwnerId, name, dateString, address, lat, lng, species, breed, description, imageBuffer];
     try {
       const newPet = await db.query(command, values);
       res.locals.newPet = newPet;
@@ -92,6 +98,7 @@ const petsController: petsControllerInterface = {
       breed,
       description
     } = req.body;
+    
     const { lat, lng } = res.locals.coords;
     const { id } = req.params;
     const command = `

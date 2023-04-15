@@ -28,7 +28,9 @@ app.get('/', (req: Request, res: Response) => {
   app.use('/api/v1/pets', petsRouter);
 
 // 404 HANDLER
-
+app.use('*', (req: Request, res: Response) => {
+  res.status(404).json({ rror: 'This page does not exist' })
+})
 // GLOBAL ERROR HANDLER
 app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
   console.error(error);

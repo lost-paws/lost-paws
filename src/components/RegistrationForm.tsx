@@ -16,7 +16,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
-import { ReportProblem } from '@mui/icons-material';
+import { Padding, ReportProblem } from '@mui/icons-material';
 import { report } from 'process';
 import './RegistrationForm.css'
 
@@ -103,21 +103,27 @@ const [address, setAddress] = useState('');
 
       
       }}>
-      <div>
+      <div className='input-container' style={{
+        display: 'block',
+        justifyContent: 'center',
+        textAlign: 'center',
+        paddingLeft: '145px'
+      }}>
         <TextField
           label="username"
           value={username}
+          className='input'
           onChange={e => setUserName(e.target.value)}
-          id="username"
+          id="input"
           sx={{ m: 1, width: '25ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
         />
-        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined" className='input'>
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
-            id="password"
+            id="input"
             type={showPassword ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">
@@ -140,7 +146,7 @@ const [address, setAddress] = useState('');
         </FormControl>
         <TextField
           label="first name"
-          id="first-name"
+          id="input"
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
           sx={{ m: 1, width: '25ch' }}
@@ -152,7 +158,7 @@ const [address, setAddress] = useState('');
           label="last name"
           value={lastName}
           onChange={e => setLastName(e.target.value)}
-          id="last-name"
+          id="input"
           sx={{ m: 1, width: '25ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
@@ -163,8 +169,8 @@ const [address, setAddress] = useState('');
           value={phoneNumber}
           onChange={e => setPhoneNumber(e.target.value)}
           type='text'
-          id="phone-number"
-          sx={{ m: 1, width: '25ch' }}
+          id="input"
+          sx={{ m: 1, width: '20ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
             
@@ -174,16 +180,16 @@ const [address, setAddress] = useState('');
           label="email address"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          id="email"
-          sx={{ m: 1, width: '55ch' }}
+          id="input"
+          sx={{ m: 1, width: '30ch' }}
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
         />
-        <FormControl fullWidth sx={{ m: 1, width: '75ch'}}>
-          <InputLabel htmlFor="">address</InputLabel>
+        <FormControl fullWidth sx={{ m: 1, width: '52ch'}}>
+          <InputLabel className='input' htmlFor="">address</InputLabel>
           <OutlinedInput
-            id="address"
+            id="input"
             startAdornment={<InputAdornment position="start"></InputAdornment>}
             label="address"
             value={address}
@@ -193,7 +199,12 @@ const [address, setAddress] = useState('');
       </div>
     </Box>
           <div className='submit-btn'>
-          <Button  type='submit' variant="outlined" sx={{ bgcolor: 'dda15e', color: 'white', textTransform: 'capitalize', ":hover": {
+          <Button  type='submit' variant="outlined" sx={{ 
+            bgcolor: 'dda15e', 
+            color: 'white', 
+            textTransform: 'capitalize', 
+            
+            ":hover": {
       bgcolor: "#A1CDF1",
       color: "white"
     }}} onClick={handleRegister}>Register</Button>
